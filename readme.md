@@ -1,5 +1,4 @@
-
-Collection of custom [grunt](https://github.com/cowboy/grunt) and
+Collection of custom [grunt](https://github.com/cowboy/grunt) tasks and
 scaffolding templates.
 
 ### install
@@ -9,8 +8,8 @@ scaffolding templates.
 
 ### description
 
-Grunt has this really nice feature when it scans for any use related
-tasks, and location. It's maybe not really well documented yet, but it's
+Grunt has this really nice feature when it scans for any user related
+tasks and location. It's maybe not really well documented yet, but it's
 kinda hot if you ask me.
 
 It's like dotfiles but for grunt.
@@ -22,7 +21,7 @@ In addition to that, grunt has this special `init` task that can be used
 to setup a variety of scaffolding use case. It'll also scan the
 `~/.grunt/tasks/init` folder to lookup any valid templates.
 
-I'll be using this repo to manage my collection of grunt custom tasks,
+I'll be using this repo to manage my collection of grunt custom tasks 
 and scaffolding templates.
 
 
