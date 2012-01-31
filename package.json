@@ -1,0 +1,12 @@
+{
+  "author": "mklabs",
+  "name": "gruntfiles",
+  "description": "Collection of grunt tasks ans scaffolding templates. It's like dotfiles, but for grunt.",
+  "version": "0.0.1",
+  "engines": {
+    "node": "~0.6.7"
+  },
+  "dependencies": {
+    "less": "~1.2.1"
+  }
+}
