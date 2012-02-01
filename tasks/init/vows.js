@@ -7,7 +7,7 @@ module.exports = function(init, done) {
     task.helper('prompt_for', 'filename', 'test'),
     task.helper('prompt_for', 'subject', 'The Deep Thought'),
     task.helper('prompt_for', 'context', 'An instance of DeepThought'),
-    task.helper('prompt_for', 'vows', 'should know the answer to the ultimate question of life'),
+    task.helper('prompt_for', 'vows', 'should know the answer to the ultimate question of life')
   ], function(err, props) {
     // Files to copy (and process).
     var files = [
