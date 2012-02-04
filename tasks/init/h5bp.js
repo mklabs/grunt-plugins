@@ -20,6 +20,18 @@ var init = module.exports = function(helpers, done) {
     { message: 'Which ones? (ignored if previous answer not Y or y)', name: 'bootstrap_files', default: '**.less js/*.js' }
   ]);
 
+  var _done = done;
+  done = function(err, props) {
+    if(err) return fail.warn(err, 3);
+
+    var files = [
+      { src: 'grunt' + (adds && (/y/i.test(props.bootstrap)) ? '.' + adds : '') + '.js', dest: path.join(props.dirname, 'grunt.js') }
+    ];
+
+    helpers.copyAndProcess(files, props);
+    return _done();
+  };
+
   task.helper('prompt', prompts, function(err, props) {
     if(err) return fail.warn(err, 3);
 
@@ -37,9 +49,12 @@ var init = module.exports = function(helpers, done) {
     init.h5bp(props.files, dirname, function(err) {
       if(err) return fail.warn(err, 3);
 
-      // handle bootstrap file if we're told to do so
-      if(!(/y/i.test(props.bootstrap))) return done();
-      init.bootstrap(props.bootstrap_files, dirname, init.plugins(dirname, done));
+      // handle bootstrap files if we're told to do so
+      if(!(/y/i.test(props.bootstrap))) return done(null, props);
+      init.bootstrap(props.bootstrap_files, dirname, init.plugins(dirname, function(err) {
+        if(err) return fail.warn(err, 3);
+        done(null, props);
+      }));
     });
 
   });
@@ -97,7 +112,7 @@ init.plugins = function plugins(dirname, done) { return function(err) {
         if(f === 'minified') return false;
         return (/y/i.test(props[f]));
       }).map(function(f) {
-        return path.resolve('js', f);
+        return path.resolve(dirname, 'js', f);
       });
 
     var content = task.helper('concat', ['js/plugins.js'].concat(files));
