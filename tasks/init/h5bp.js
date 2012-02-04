@@ -6,13 +6,19 @@ var fs = require('fs'),
 var init = module.exports = function(helpers, done) {
   log.subhead('Fetching latest copy of html5-boilerplate files');
 
+  var args = Array.prototype.slice.call(arguments, 2),
+    adds = args[0];
+
   // Now prompt for twitter-bootstrap integration, fetching necessary files from master repo
   var prompts = [
     task.helper('prompt_for', 'dirname', './'),
-    task.helper('prompt_for', 'files', '**.*'),
+    task.helper('prompt_for', 'files', '**.*')
+  ];
+
+  if(adds === 'bootstrap') prompts = prompts.concat([
     { message: 'Would you like to include bootstrap files?', name: 'bootstrap', default: 'Y/n' },
     { message: 'Which ones? (ignored if previous answer not Y or y)', name: 'bootstrap_files', default: '**.less js/*.js' }
-  ];
+  ]);
 
   task.helper('prompt', prompts, function(err, props) {
     if(err) return fail.warn(err, 3);
@@ -41,7 +47,6 @@ var init = module.exports = function(helpers, done) {
 };
 
 init.h5bp = function h5bp(files, dirname, cb) {
-  console.log('init h5bp');
   ghf.fetch(['h5bp/html5-boilerplate'].concat(files.split(' ')), { whereto: dirname }, cb);
 };
 
