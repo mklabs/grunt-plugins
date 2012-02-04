@@ -1,6 +1,8 @@
 // less task, to be backported into gruntfiles
-var less = require('less'),
-  fs = require('fs');
+//
+var fs = require('fs'),
+  path = require('path'),
+  less = require('less');
 
 // ### Less tasks - Compiles less files
 //
@@ -27,9 +29,10 @@ var less = require('less'),
 
 task.registerBasicTask('less', 'compiles less files', function(data, name) {
   var out = path.resolve(name),
-    min = /\.min\.css$/.test(name);
+    min = /\.min\.css$/.test(name),
+    cb = this.async();
 
-  log.writeln('less: writing files to ' + out);
+  verbose.or.write('Writing to ' + out + '...');
 
   var files = file.expand(data);
 
@@ -43,6 +46,8 @@ task.registerBasicTask('less', 'compiles less files', function(data, name) {
 
     // now gonna concat the expanded set of files into destination files.
     file.write(out, results.join('\n\n'));
+    verbose.or.ok();
+    cb();
   });
 
 });
