@@ -7,6 +7,7 @@
     "node": "~0.6.7"
   },
   "dependencies": {
-    "less": "~1.2.1"
+    "less": "~1.2.1",
+    "gh-fetch": "http://nodeload.github.com/mklabs/gh-fetch/tarball/master"
   }
 }
