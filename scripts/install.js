@@ -3,8 +3,7 @@ var fs = require('fs'),
   glob = require('glob'),
   path = require('path'),
   npm = require('npm'),
-  log = require('npm/lib/utils/log'),
-  errHandler = require('npm/lib/utils/error-handler');
+  log = require('npm/lib/utils/log');
 
 npm.load({ loglevel: 'info' }, function(err) {
   if(err) throw err;
@@ -20,7 +19,10 @@ npm.load({ loglevel: 'info' }, function(err) {
       return [f, deps[f]].join('@');
     });
 
-    npm.commands.install(dirname, deps, errHandler);
+    npm.commands.install(dirname, deps, function(err) {
+      if(err) return log.error(err);
+      log.info(Array.prototype.slice.call(arguments, 3));
+    });
   });
 
 });
