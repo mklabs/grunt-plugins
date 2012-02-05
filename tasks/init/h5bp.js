@@ -62,11 +62,29 @@ var init = module.exports = function(helpers, done) {
 };
 
 init.h5bp = function h5bp(files, dirname, cb) {
-  ghf.fetch(['h5bp/html5-boilerplate'].concat(files.split(' ')), { whereto: dirname }, cb);
+  init.fetch('h5bp/html5-boilerplate', files, dirname, cb);
 };
 
 init.bootstrap = function bootstrap(files, dirname, cb) {
-  ghf.fetch(['twitter/bootstrap'].concat(files.split(' ')), { whereto: dirname }, cb);
+  init.fetch('twitter/bootstrap', files, dirname, cb);
+};
+
+init.fetch = function fetch(repo, files, dirname, cb) {
+  ghf.fetch([repo].concat(files.split(' ')), { whereto: dirname }, cb)
+    .on('start', function(urls, ln) {
+      log.subhead('Fetching ' + ln + ' file' + (ln > 1 ? 's': '') + ' from ' + repo + ' repo...');
+    })
+    .on('end', function() {
+      verbose.writeln('End downloading files from ' + repo);
+      verbose.or.ok();
+    })
+    .on('download', function(url) {
+      verbose.writeln('Downloading ' + url + '...');
+    })
+    .on('downloaded', function(url) {
+      verbose.ok('Downloaded ' + url + '...');
+      verbose.or.write('.'.green);
+    });
 };
 
 init.plugins = function plugins(dirname, done) { return function(err) {
