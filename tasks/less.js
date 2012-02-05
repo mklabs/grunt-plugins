@@ -32,7 +32,7 @@ task.registerBasicTask('less', 'compiles less files', function(data, name) {
     min = /\.min\.css$/.test(name),
     cb = this.async();
 
-  verbose.or.write('Writing to ' + out + '...');
+  verbose.or.write('Writing to .' + out.replace(process.cwd(), '') + '...');
 
   var files = file.expand(data);
 
