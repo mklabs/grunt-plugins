@@ -209,13 +209,44 @@ install` task that might be used to install npm packages from grunt
 right into the `~/.grunt` directory.
 
 It may come handy when a built-task in `~/.grunt` is missing one more
-dependencies.
+dependencies:
 
     grunt install:rimraf
     grunt install:handlebars
 
     grunt install:clean-css:requirejs:coffee-script
 
+**grunt help**
+
+This task will use the grunt documentation and nicely ouput them in the
+console as a manpage. First time the task is called, the latest copy of
+grunt documentation are fetched from master repo.
+
+Then [ronnjs](https://github.com/kapouer/ronnjs) is used to generate the
+according manpage when the following commands are run:
+
+    grunt help:api
+    grunt help:configuring
+
+Running just help will output the following:
+
+    Running "help" task
+    >> Unable to find related page for undefined. Valid terms are: api
+    >> api_log
+    >> configuring
+    >> contributing
+    >> example_gruntfiles
+    >> exit_codes
+    >> helpers_directives
+    >> task_concat
+    >> tasks_builtin
+    >> tasks_creating
+    >> toc
+    Would you like to open the toc page instead?
+
+    Please answer the following:
+    [?] toc (Y/n)
+    [?] Are these answers correct? (Y/n)
 
 ## Tests
 
