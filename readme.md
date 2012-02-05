@@ -201,6 +201,22 @@ Would output the following to the console when `grunt less is run`:
 
       Done, without errors.
 
+
+**grunt install**
+
+A basic wrapper on top of npm's install. This simply creates a `grunt
+install` task that might be used to install npm packages from grunt
+right into the `~/.grunt` directory.
+
+It may come handy when a built-task in `~/.grunt` is missing one more
+dependencies.
+
+    grunt install:rimraf
+    grunt install:handlebars
+
+    grunt install:clean-css:requirejs:coffee-script
+
+
 ## Tests
 
 Even though tasks may be layout in different and independant nested npm
