@@ -25,7 +25,7 @@ You should see no red here and the few additionnal tasks added.
 
 ## description
 
-It'll include any tasks in `~/.grunt/tasks`. Any files put in there might
+Grunt will include any tasks in `~/.grunt/tasks`. Any files put in there might
 override built-in tasks or create new custom one.
 
 In addition to that, grunt has this special `init` task that can be used
@@ -43,6 +43,10 @@ There's a few special files in the hierarchy.
   automatically loaded by grunt.
 * **tasks/autoload.js**: This file, being a `.js` file inside the
   `~/.grunt/tasks` directory, is automatically loaded by grunt and
+  will itself require and load any package in the `./tasks/` dir.
+* **tasks/init/**: is a special folder only used with built-in `grunt
+  init` task. Each `tasks/init/*.js` files are templates that may be
+  run via `grunt init:template` command.
 * **tasks/*/package.json**: Any package.json get loaded by the npm
   scripts (see below) and enables tasks to be layout in their own
   modules.
@@ -205,7 +209,7 @@ them.
 
     npm test
 
-It works by running the `scripts/install.s` and by using npm
+It works by running the `scripts/test.s` and by using npm
 programmatically to lookup any `tasks/*/package.json` and run each
 package's "test" script.
 
