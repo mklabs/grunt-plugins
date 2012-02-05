@@ -6,7 +6,8 @@ var path = require('path'),
 
 
 task.registerInitTask('help', 'Get help on grunt', function(term) {
-  var cb = this.async();
+  var cb = this.async(),
+    term = Array.prototype.slice.call(arguments).join('_');
 
   if(path.existsSync(path.join(__dirname, 'docs'))) return task.helper('help', term, cb);
 
@@ -46,6 +47,8 @@ task.registerHelper('help', function(term, cb) {
 
   if(!page) {
     log.error('Unable to find related page for ' + term + '. Valid terms are: ' + log.wordlist(pages, '\n'));
+    if(term) return cb(false);
+
     log.writeln('Would you like to open the toc page instead?');
     return task.helper('prompt', [task.helper('prompt_for', 'toc', 'Y/n')], function(err, props) {
       if(err) return fail.warn(err, 3);
