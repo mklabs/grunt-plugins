@@ -107,6 +107,10 @@ and add a basic `grunt.js` file at the dirname location.
 This one is slight variation of `init:h5bp` by adding in a few prompts
 to remotely fetch files from twitter bootstrap's repo too.
 
+The gruntfile added will also include necessary config to build
+bootstrap's stylesheets from less files. The `watch:less` task may even
+be used to recompile them as they're changing.
+
     Running "init:h5bp:bootstrap" (init) task
 
     Fetching latest copy of html5-boilerplate files
@@ -153,7 +157,7 @@ to remotely fetch files from twitter bootstrap's repo too.
     Done, without errors.
 
 
-**grunt less*
+**grunt less**
 
 The less task will compile any expanded less files into raw CSS. It'll
 run a compilation through the less compiler for each files in the
@@ -192,3 +196,21 @@ Would output the following to the console when `grunt less is run`:
       Writing to ./css/style.css...OK
 
       Done, without errors.
+
+## Tests
+
+Even though tasks may be layout in different and independant nested npm
+modules, the top level `npm test` command should be able to aggregate
+them.
+
+    npm test
+
+It works by running the `scripts/install.s` and by using npm
+programmatically to lookup any `tasks/*/package.json` and run each
+package's "test" script.
+
+*Note*: The install commands works pretty much the same. When `npm
+install` is run from the top-level dir, it'll use a postinstall script
+and the  `scripts/install.js` file to lookup nested package and install
+them. This acts much the same ways as cd'ing into each one individually
+and installing them on the command-line.
