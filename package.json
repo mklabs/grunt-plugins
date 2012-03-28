@@ -1,6 +1,6 @@
 {
   "name": "grunt-flavored",
-  "description": "Grunt with spicy API",
+  "description": "Grunt plugin with spicy API",
   "version": "0.1.0",
   "homepage": "https://github.com/mklabs/grunt-flavored",
   "author": {
@@ -13,7 +13,7 @@
   "bugs": {
     "url": "https://github.com/mklabs/grunt-flavored/issues"
   },
-  "main": "grunt-flavored.js",
+  "main": "lib/grunt-flavored",
   "bin": "bin/grunt-flavored",
   "engines": {
     "node": "> 0.6"
