@@ -261,7 +261,7 @@ The log plugin example can be found in example.
 
 * show loaded tasks with `--help` output (might be related [#83](https://github.com/cowboy/grunt/issues/83))
 
-## Tests
+## Tests - [![Build Status](https://secure.travis-ci.org/mklabs/grunt-flavored.png?branch=master)](http://travis-ci.org/mklabs/grunt-flavored)
 
 Simply run
 
