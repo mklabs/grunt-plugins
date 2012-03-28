@@ -31,3 +31,11 @@ task.registerMultiTask('logstuff', 'This task logs stuff.', function() {
   log.writeln('Logging stuff succeeded.');
 });
 
+
+task.registerTask('foo', 'A sample task that logs stuff.', function(arg1, arg2) {
+  if (arguments.length === 0) {
+    log.writeln(this.name + ", no args");
+  } else {
+    log.writeln(this.name + ", " + arg1 + " " + arg2);
+  }
+});

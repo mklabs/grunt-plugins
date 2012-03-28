@@ -22,7 +22,10 @@
     "test": "node test"
   },
   "dependencies": {
-    "grunt": "~0.3.4"
+    "grunt": "~0.3.4",
+    "coffee-script": "~1.2.0"
   },
-  "keywords": ["spicy"]
+  "keywords": [
+    "spicy"
+  ]
 }

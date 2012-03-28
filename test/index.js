@@ -28,5 +28,10 @@ assert.ok(typeof flavored.load === 'function');
 // spawning grunt with real test case, executing the tasks in `test/grunt/tasks`
 //
 
-['logstuff', 'flavored-test'].forEach(run);
+
+['logstuff', 'flavored-test', 'foo'].forEach(run);
+
+
+// coffee script written tasks
+['coffee-logstuff', 'coffee-flavored', 'coffee-foo'].forEach(run);
 
