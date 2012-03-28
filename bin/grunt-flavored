@@ -1,0 +1,15 @@
+#!/usr/bin/env node
+
+var flavored = require('../'),
+  grunt = require('grunt');
+
+try {
+  flavored(grunt).cli();
+} catch(e) {
+  console.log(e.stack + '\n');
+  [ 'An error occurred while loading grunt, please ensure that it has been',
+    'installed correctly before continuing. You can learn more about grunt',
+    'at the grunt project page, https://github.com/cowboy/grunt/'
+  ].forEach(function(s) { console.log(s); });
+  process.exit(31);
+}

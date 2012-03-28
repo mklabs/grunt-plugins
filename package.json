@@ -1,0 +1,28 @@
+{
+  "name": "grunt-flavored",
+  "description": "Grunt with spicy API",
+  "version": "0.1.0",
+  "homepage": "https://github.com/mklabs/grunt-flavored",
+  "author": {
+    "name": "mklabs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mklabs/grunt-flavored.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mklabs/grunt-flavored/issues"
+  },
+  "main": "grunt-flavored.js",
+  "bin": "bin/grunt-flavored",
+  "engines": {
+    "node": "> 0.6"
+  },
+  "scripts": {
+    "test": "node test"
+  },
+  "dependencies": {
+    "grunt": "~0.3.4"
+  },
+  "keywords": ["spicy"]
+}

@@ -1,0 +1,22 @@
+info it worked if it ends with ok
+verbose cli [ 'node', '/usr/local/bin/npm', 'test' ]
+info using npm@1.1.0-beta-10
+info using node@v0.6.1
+verbose config file /Users/mk/.npmrc
+verbose config file /usr/local/etc/npmrc
+verbose config file /usr/local/lib/node_modules/npm/npmrc
+ERR! Error: ENOENT, no such file or directory '/Users/mk/Temp/dev/mklabs/grunt-flavored/test/grunt/package.json'
+ERR! Report this *entire* log at:
+ERR!     <http://github.com/isaacs/npm/issues>
+ERR! or email it to:
+ERR!     <npm-@googlegroups.com>
+ERR! 
+ERR! System Darwin 9.8.0
+ERR! command "node" "/usr/local/bin/npm" "test"
+ERR! cwd /Users/mk/Temp/dev/mklabs/grunt-flavored/test/grunt
+ERR! node -v v0.6.1
+ERR! npm -v 1.1.0-beta-10
+ERR! path /Users/mk/Temp/dev/mklabs/grunt-flavored/test/grunt/package.json
+ERR! code ENOENT
+ERR! message ENOENT, no such file or directory '/Users/mk/Temp/dev/mklabs/grunt-flavored/test/grunt/package.json'
+verbose exit [ 1, true ]
