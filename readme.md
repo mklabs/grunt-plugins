@@ -222,8 +222,44 @@ broadway).
 * **load** the load method is defined through a plugin, it's probably a
   good example to figure out how it works.
 
-* **log** (tbd) Example of overriding grunt's log object. This should
+* **log** Example of overriding grunt's log object. This should
   comply to grunt's [log api](https://github.com/cowboy/grunt/blob/master/docs/api_log.md).
+
+The log plugin example can be found in example.
+
+**Run it!**
+
+    $ cd examples
+    $ grunt
+
+☃ party.
+
+    ☃  - Running "logstuff:foo" (logstuff) task
+    ☃  - foo: 1,2,3
+    ☃  - foo
+    ☃  - 1,2,3
+    ☃  - logstuff
+    ☃  - 
+    {}
+      data -{ src: [ 1, 2, 3 ],
+      data -  dest: 'foo' }
+    ☃  - Logging stuff succeeded.
+
+    ☃  - Running "logstuff:bar" (logstuff) task
+    ☃  - bar: hello world
+    ☃  - bar
+    ☃  - hello world
+    ☃  - logstuff
+    ☃  - 
+    {}
+      data -{ src: 'hello world', dest: 'bar' }
+    ☃  - Logging stuff succeeded.
+
+    ☃  - Done, without errors.
+
+## Todo
+
+* show loaded tasks with `--help` output (might be related [#83](https://github.com/cowboy/grunt/issues/83))
 
 ## Tests
 
