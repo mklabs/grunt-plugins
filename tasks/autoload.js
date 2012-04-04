@@ -1,6 +1,6 @@
 
 var fs = require('fs'),
-  path = require('path');
+  join = require('path').join;
 
 // autoload thing
 //
@@ -13,12 +13,16 @@ var fs = require('fs'),
 // npm install script enables task to be contained within their own
 // module, with dependencies properly sandboxed.
 
-fs.readdirSync(__dirname).forEach(function(f) {
-  var filepath = path.join(__dirname, f);
+module.exports = function(grunt) {
 
-  if(!fs.statSync(filepath).isDirectory()) return;
-  if(f === 'init') return;
+  fs.readdirSync(__dirname).forEach(function(f) {
+    var filepath = join(__dirname, f);
 
-  // require the tasks
-  require('./' + f);
-});
+    if(!fs.statSync(filepath).isDirectory()) return;
+    if(f === 'init') return;
+
+    // require the tasks
+    grunt.loadTasks(join(__dirname, f));
+  });
+
+};

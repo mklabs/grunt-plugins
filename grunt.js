@@ -2,8 +2,11 @@ module.exports = function(grunt) {
 
   // Project configuration.
   grunt.initConfig({
+
+    // viewer: 'stdout',
+
     lint: {
-      files: ['grunt.js', 'lib/**/*.js', 'tasks/**.js']
+      files: ['grunt.js', 'lib/**/*.js', 'tasks/**/*.js']
     },
     test: {
       files: ['test/**/*.js']

@@ -1,85 +1,117 @@
 
-var path = require('path'),
-  spawn = require('child_process').spawn,
-  Ronn = require('ronn').Ronn,
-  gh = require('gh-fetch');
+var fs = require('fs'),
+  path = require('path'),
+  npm = require('npm'),
+  viewers = require('./viewers');
+
+//
+// ### Help task - Get help on grunt task and API
+//
+// A significant amount of effort have been put into setting up a comprehensive
+// and most excellent documentation on grunt usage, tasks and API.
+//
+//      https://github.com/cowboy/grunt/blob/master/docs/toc.md
+//
+// This task embraces this shiny new docs to provide an handy `grunt help`
+// task. It takes term to search for in the grunt docs. A term should match a
+// doc page, minus extension. Alternately, many term could be provided, such
+// as `help:api:config` which is the equivalent of using `help:api_config`.
+//
+// **Configuration**
+//
+// In your gruntfile:
+//
+//    ...
+//    viewer: 'man', // or browser, or stdout.
+//    browser: 'open', // or google-chrome
+//    ...
+//
+// If viewer or browser are not found in grunt config, then the npm config is used instead.
+//
+// Possible values for `viewer` are: man, browser or stdout.
+//
+//
+// When `viewer=browser`, then the `browser` config value is used to open the
+// appropriate HTML page in your browser.
+//
+// When `viewer=man`, then the documentation is displayed as manpage. The
+// conversion is done directly from markdown files (in grunt installed
+// location, either it is locally or globally), thanks to @kapouer's
+// [ronnjs](https://github.com/kapouer/ronnjs#readme) and dipslayed via man
+// executable.
+//
+
+var usage = [
+  'Usage:',
+  ' grunt help',
+  ' grunt help:page'
+];
 
 module.exports = function(grunt) {
 
-  grunt.task.registerInitTask('help', 'Get help on grunt', function(term) {
+  var log = grunt.log,
+    verbose = grunt.verbose;
+
+  grunt.task.registerTask('help', 'Get help on grunt', function() {
     var cb = this.async(),
       term = Array.prototype.slice.call(arguments).join('_');
 
-    if(path.existsSync(path.join(__dirname, 'docs'))) return task.helper('help', term, cb);
+    resolve('grunt', function(err, gruntpath) {
+      if(err) return cb(false);
+      var docspath = path.join(gruntpath, 'docs'),
+        docsfiles = fs.readdirSync(docspath);
 
-    var fetch = gh.fetch(['cowboy/grunt', 'docs/*.md'], { whereto: __dirname }, function(err) {
-      if(err) return fail.warn(err, 3);
-      task.helper('help', term, cb)
+      // guess the correct doc path from provided term
+      var page = docsfiles.filter(function(f) {
+        return path.basename(f) === term + path.extname(f);
+      })[0];
+
+      if(!page) {
+        if(term) log.error('Unable to find documentation for ' + term);
+
+        docsfiles = docsfiles.map(function(file) {
+          return 'grunt help:' + file.replace(path.extname(file), '');
+        });
+
+        return log
+          .writeln(usage.join(grunt.utils.linefeed))
+          .writeln()
+          .writeln(log.wordlist(['Pages:'].concat(docsfiles), grunt.utils.linefeed + ' » '));
+      }
+
+      // which viewer to use (only stdout now)
+      var viewer = grunt.config('viewer') || npm.config.get('viewer');
+
+      var view = viewers[viewer];
+      if(!view) return log.error('not a valid viewer ' + viewer);
+
+      var filepath = path.join(docspath, page);
+      view.call(grunt, page, filepath, function(err) {
+        if(err) {
+          log.error(err);
+          return cb(false);
+        }
+      });
     });
-
-    fetch
-      .on('start', function(urls, ln) {
-        log.subhead('Fetching ' + ln + ' file' + (ln > 1 ? 's': '') + " from grunt's repo...");
-      })
-      .on('end', function() {
-        verbose.writeln('End downloading files');
-        verbose.or.ok();
-      })
-      .on('download', function(url) {
-        verbose.writeln('Downloading ' + url + '...');
-      })
-      .on('downloaded', function(url) {
-        verbose.ok('Downloaded ' + url + '...');
-        verbose.or.write('.'.green);
-      });
-
   });
 
-  grunt.task.registerHelper('help', function(term, cb) {
+  //
+  // Set of helpers, not exposed as grunt helpers. But might be.
+  //
 
-    var files = file.expand(path.join(__dirname, 'docs/*.md')),
-      pages = files.map(function(f) {
-        return path.basename(f).replace(path.extname(f), '');
-      });
-
-    var page = files.filter(function(f) {
-      return path.basename(f) === term + path.extname(f);
-    })[0];
-
-    if(!page) {
-      log.error('Unable to find related page for ' + term + '. Valid terms are: ' + log.wordlist(pages, '\n'));
-      if(term) return cb(false);
-
-      log.writeln('Would you like to open the toc page instead?');
-      return task.helper('prompt', [task.helper('prompt_for', 'toc', 'Y/n')], function(err, props) {
-        if(err) return fail.warn(err, 3);
-        if(/y/i.test(props.toc)) return task.helper('man', path.join(__dirname, 'docs/toc.md'), cb);
-        cb(false);
-      });
-    }
-
-    task.helper('man', page, cb);
-  });
-
-
-  grunt.task.registerHelper('man', function(filepath, cb) {
-    var content = file.read(filepath);
-
-    content = [
-      "grunt-:page(1) -- documentation for :page",
-      "==========================================================================================================",
-      "",
-      "---",
-      content
-    ].join('\n').replace(/:page/g, path.basename(filepath));
-
-    var ronn = new Ronn(content).roff(),
-      manpath = path.join(path.dirname(filepath), '.tmp.man');
-
-    file.write(manpath, ronn);
-    spawn('man', [manpath], { customFds: [0, 1, 2] }).on('exit', cb);
-
-  });
-
+  function resolve(name, cb) {
+    npm.load({ global: true }, function(er) {
+      if(er) return cb(er);
+      try {
+        cb(null, require.resolve(name));
+      } catch(e) {
+       // not installed locally, maybe in node prefix?
+       fs.stat(path.join(npm.dir, name), function(er) {
+         if(er) return cb(new Error(name + ' is not installed. Either it is locally or globally.'));
+         cb(null, path.join(npm.dir, name));
+       });
+      }
+    });
+  }
 };
 
