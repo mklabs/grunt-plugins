@@ -1,5 +1,3 @@
-// less task, to be backported into gruntfiles
-//
 var fs = require('fs'),
   path = require('path'),
   less = require('less');
@@ -27,35 +25,35 @@ var fs = require('fs'),
 //
 //  ...
 
-task.registerBasicTask('less', 'compiles less files', function(data, name) {
-  var out = path.resolve(name),
-    min = /\.min\.css$/.test(name),
-    cb = this.async();
+module.exports = function(grunt) {
 
-  verbose.or.write('Writing to .' + out.replace(process.cwd(), '') + '...');
+  grunt.task.registerMultiTask('less', 'compiles less files', function(data, name) {
+    var out = path.resolve(name),
+      min = /\.min\.css$/.test(name),
+      cb = this.async();
 
-  var files = file.expand(data);
+    grunt.verbose.or.write('Writing to .' + out.replace(process.cwd(), '') + '...');
 
-  // check that the files passed in are actual less files, yell if it's not
-  files.forEach(function(f) {
-    if(path.extname(f) !== '.less') fail.warn(f + ' not a .less file', 3);
+    var files = grunt.file.expand(data);
+
+    // check that the files passed in are actual less files, yell if it's not
+    files.forEach(function(f) {
+      if(path.extname(f) !== '.less') grunt.fail.warn(f + ' not a .less file', 3);
+    });
+
+    grunt.utils.async.map(files, grunt.task.helper('less', { compress: min }), function(err, results) {
+      if(err) return grunt.fail.warn(err);
+
+      // now gonna concat the expanded set of files into destination files.
+      grunt.file.write(out, results.join(grunt.utils.linefeed));
+      verbose.or.ok();
+      cb();
+    });
+
   });
 
-  async.map(files, task.helper('less', { compress: min }), function(err, results) {
-    if(err) return fail.warn(err);
 
-    // now gonna concat the expanded set of files into destination files.
-    file.write(out, results.join('\n\n'));
-    verbose.or.ok();
-    cb();
-  });
-
-});
-
-
-task.registerHelper('less', function(o) {
-
-  return function(filename, cb) {
+  grunt.task.registerHelper('less', function(o) { return function(filename, cb) {
     var parser = new less.Parser({
       paths: [path.dirname(filename)]
     });
@@ -68,6 +66,8 @@ task.registerHelper('less', function(o) {
         var css = tree.toCSS(o || {});
         cb(null, css);
       });
-    })
-  };
-});
+    });
+  }});
+
+};
+
