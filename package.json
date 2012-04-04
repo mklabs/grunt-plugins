@@ -12,7 +12,7 @@
     "glob": "~3.0.1"
   },
   "scripts": {
-    "postinstall": "node scripts/install",
-    "test": "node scripts/test"
+    "postinstall": "node install",
+    "test": "node test"
   }
 }

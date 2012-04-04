@@ -11,6 +11,5 @@ npm.load({ loglevel: 'info' }, function(err) {
     return path.resolve(path.dirname(package));
   });
 
-
   return npm.commands.test(packages, handler);
 });
