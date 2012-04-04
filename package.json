@@ -2,14 +2,13 @@
   "author": "mklabs",
   "name": "gruntfiles",
   "description": "Collection of grunt tasks ans scaffolding templates. It's like dotfiles, but for grunt.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "engines": {
     "node": "~0.6.7"
   },
   "dependencies": {
-    "less": "~1.2.1",
-    "gh-fetch": "http://nodeload.github.com/mklabs/gh-fetch/tarball/master",
-    "npm": "~1.1.0-3",
+    "less": "~1.2.2",
+    "npm": "~1.1.15",
     "glob": "~3.0.1"
   },
   "scripts": {
