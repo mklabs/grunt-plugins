@@ -46,28 +46,30 @@ module.exports = function(grunt) {
 
       // now gonna concat the expanded set of files into destination files.
       grunt.file.write(out, results.join(grunt.utils.linefeed));
-      verbose.or.ok();
+      grunt.verbose.or.ok();
       cb();
     });
 
   });
 
 
-  grunt.task.registerHelper('less', function(o) { return function(filename, cb) {
-    var parser = new less.Parser({
-      paths: [path.dirname(filename)]
-    });
-
-    fs.readFile(filename, 'utf8', function(err, body) {
-      if(err) return cb(err);
-
-      parser.parse(body, function(err, tree) {
-        if(err) return cb(err);
-        var css = tree.toCSS(o || {});
-        cb(null, css);
+  grunt.task.registerHelper('less', function(o) {
+    return function(filename, cb) {
+      var parser = new less.Parser({
+        paths: [path.dirname(filename)]
       });
-    });
-  }});
+
+      fs.readFile(filename, 'utf8', function(err, body) {
+        if(err) return cb(err);
+
+        parser.parse(body, function(err, tree) {
+          if(err) return cb(err);
+          var css = tree.toCSS(o || {});
+          cb(null, css);
+        });
+      });
+    };
+  });
 
 };
 

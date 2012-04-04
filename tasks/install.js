@@ -26,13 +26,13 @@ module.exports = function(grunt) {
       grunt.verbose.or.writeln('Install ' + args.join(' ') + '...');
       npm.commands.install(path.resolve(home, '.grunt'), args, function(err) {
         if(err) {
-          verbose.or.error(err.stack || err);
-          return fail.warn(err, 3);
+          grunt.verbose.or.error(err.stack || err);
+          return grunt.fail.warn(err, 3);
         }
 
         grunt.verbose.or.ok();
         cb();
-      })
+      });
     });
   });
 
