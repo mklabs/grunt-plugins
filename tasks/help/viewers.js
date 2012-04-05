@@ -13,7 +13,7 @@ viewers.browser = function browser(page, filepath, cb) {
     return cb(new Error("viewer=browser and no browser set."));
   }
 
-  log.subhead("Opening HTML in default browser..." + b);
+  this.log.subhead("Opening HTML in default browser..." + b);
   var htmlPath = 'https://github.com/cowboy/grunt/blob/master/docs/:page#readme'
     .replace(/:page/, page);
 

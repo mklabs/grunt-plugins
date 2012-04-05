@@ -9,10 +9,13 @@
   "dependencies": {
     "less": "~1.2.2",
     "npm": "~1.1.15",
-    "glob": "~3.0.1"
+    "glob": "~3.0.1",
+    "rimraf": "~2.0.1",
+    "request": "~2.9.153",
+    "tar": "~0.1.13"
   },
   "scripts": {
-    "postinstall": "node install",
+    "install": "node install",
     "test": "node test"
   }
 }
