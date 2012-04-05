@@ -23,7 +23,7 @@ h5bp.warnOn = '*';
 
 // The actual init template.
 h5bp.template = function(grunt, init, done) {
-  var exists = path.existsSync(path.join(__dirname, 'h5bp/root'));
+  var exists = path.existsSync(path.join(__dirname, 'h5bp/root/index.html'));
 
   var promptOpts = grunt.helper('prompt_for_obj');
   promptOpts.force_update = {
@@ -46,7 +46,7 @@ h5bp.template = function(grunt, init, done) {
   ];
 
   if(exists) prompts.push(grunt.helper('prompt_for', 'force_update'));
-  grunt.helper('prompt', {type: 'h5bp'}, prompts, function(err, props) {
+  grunt.helper('prompt', { type: 'h5bp' }, prompts, function(err, props) {
     if(/n/i.test(props.force_update) && exists) return next(props);
 
     var url = 'https://github.com/h5bp/html5-boilerplate/tarball/master';
