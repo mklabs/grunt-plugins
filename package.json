@@ -1,0 +1,23 @@
+{
+  "author": "mklabs",
+  "name": "grunt-help",
+  "description": "Get help on grunt",
+  "version": "0.1.0",
+  "homepage": "https://github.com/mklabs/grunt-help",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mklabs/grunt-help.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mklabs/grunt-help/issues"
+  },
+  "main": "lib/",
+  "engines": {
+    "node": "0.6.x"
+  },
+  "devDependencies": {},
+  "dependencies": {
+    "ronn": "~0.3.8",
+    "npm": "~1.1.15"
+  }
+}
