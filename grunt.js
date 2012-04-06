@@ -20,6 +20,9 @@ module.exports = function(grunt) {
     }
   });
 
+  // help plugin
+  grunt.task.loadNpmTasks('grunt-help');
+
   // Default task.
   grunt.registerTask('default', 'init');
 
