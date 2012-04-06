@@ -2,7 +2,7 @@
   "author": "mklabs",
   "name": "grunt-help",
   "description": "Get help on grunt",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "homepage": "https://github.com/mklabs/grunt-help",
   "repository": {
     "type": "git",

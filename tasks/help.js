@@ -15,7 +15,7 @@ module.exports = function(grunt) {
   var log = grunt.log,
     verbose = grunt.verbose;
 
-  grunt.task.registerTask('helpr', 'Get help on grunt', function() {
+  grunt.task.registerTask('help', 'Get help on grunt', function() {
     var cb = this.async(),
       term = Array.prototype.slice.call(arguments).join('_');
 
