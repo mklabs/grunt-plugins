@@ -5,9 +5,8 @@ var fs = require('fs'),
   viewers = require('../lib/viewers');
 
 var usage = [
-  'Usage:',
-  ' grunt help',
-  ' grunt help:page'
+  '',
+  'page'
 ];
 
 module.exports = function(grunt) {
@@ -15,48 +14,81 @@ module.exports = function(grunt) {
   var log = grunt.log,
     verbose = grunt.verbose;
 
-  grunt.task.registerTask('help', 'Get help on grunt', function() {
-    var cb = this.async(),
-      term = Array.prototype.slice.call(arguments).join('_');
+  grunt.registerTask('help', 'Get help on grunt', function() {
+      var cb = this.async(),
+      flags = this.flags,
+      onGrunt = flags.grunt,
+      list = flags['?'];
 
+    if(onGrunt) delete flags.grunt;
+    var args = Object.keys(flags);
     resolve('grunt', function(err, gruntpath) {
       if(err) return cb(false);
-      var docspath = path.join(gruntpath, 'docs'),
-        docsfiles = fs.readdirSync(docspath);
+      var opts = grunt.config('help') || {};
+      opts.docspath = opts.docspath || opts.base || path.join(gruntpath, 'docs');
+      opts.files = opts.files || '**.md';
+      opts.prefix = opts.prefix || 'grunt help:';
+      opts.list = list;
 
-      // guess the correct doc path from provided term
-      var page = docsfiles.filter(function(f) {
-        return path.basename(f) === term + path.extname(f);
-      })[0];
+      // if grunt was passed in one of the term, force the lookup in
+      // builtin grunt docs no matter what
+      if(onGrunt) opts = {
+        docspath: path.join(gruntpath, 'docs'),
+        files: '**.md',
+        prefix: 'grunt help:'
+      };
 
-      if(!page) {
-        if(term) log.error('Unable to find documentation for ' + term);
-
-        docsfiles = docsfiles.map(function(file) {
-          return 'grunt help:' + file.replace(path.extname(file), '');
-        });
-
-        return log
-          .writeln(usage.join(grunt.utils.linefeed))
-          .writeln()
-          .writeln(log.wordlist(['Pages:'].concat(docsfiles), grunt.utils.linefeed + ' » '));
-      }
-
-      // which viewer to use (only stdout now)
-      var viewer = grunt.config('viewer') || npm.config.get('viewer');
-
-      var view = viewers[viewer];
-      if(!view) return log.error('not a valid viewer ' + viewer);
-
-      var filepath = path.join(docspath, page);
-      view.call(grunt, page, filepath, function(err) {
-        if(err) {
-          log.error(err);
-          return cb(false);
-        }
-      });
+      help(args, opts, cb);
     });
   });
+
+  grunt.task.registerHelper('help', help);
+
+  function help(args, opts, cb) {
+    if(!cb) cb = opts, opts = {};
+    if(!opts.docspath) grunt.fail('Help helper needs a docspath');
+
+    var term = args.join(opts.delimiter || '_'),
+      docspath = opts.docspath,
+      pages = loadDocs(opts.files, opts);
+
+    // guess the correct doc path from provided term
+    var page = pages.filter(function(f) {
+      return path.basename(f) === term + path.extname(f);
+    })[0];
+
+    if(!page) {
+      if(term && !opts.list) log.error('Unable to find documentation for ' + term);
+
+      docsfiles = pages.map(function(file) {
+        return opts.prefix + file.replace(path.extname(file), '');
+      });
+
+      usage = usage.map(function(line) {
+        return (opts.prefix + line).replace(/:$/, '');
+      });
+
+      return log
+        .writeln(opts.list ? '' : ['Usage:'].concat(usage).join(grunt.utils.linefeed))
+        .writeln()
+        .writeln(log.wordlist(['Pages:'].concat(docsfiles), grunt.utils.linefeed + ' » '));
+    }
+
+
+    // which viewer to use (only stdout now)
+    var viewer = grunt.config('viewer') || npm.config.get('viewer');
+
+    var view = viewers[viewer];
+    if(!view) return log.error('not a valid viewer ' + viewer);
+
+    if(opts.rename && typeof opts.rename === 'function') page = opts.rename(page, viewer);
+    view.call(grunt, page, opts, function(err) {
+      if(err) {
+        log.error(err);
+        return cb(false);
+      }
+    });
+  }
 
   //
   // Set of helpers, not exposed as grunt helpers. But might be.
@@ -75,6 +107,24 @@ module.exports = function(grunt) {
        });
       }
     });
+  }
+
+  // additional docs paths
+  function loadDocs(docs, opts) {
+    opts = opts || {};
+    var base = opts.docspath || grunt.config('base') || process.cwd();
+    files = base ? path.resolve(base, docs) : docs;
+    return grunt.file.expandFiles(files)
+      // filter the files with leading `_` or `.`
+      .filter(function(file) {
+        file = path.basename(file);
+        return !/[_\.]/.test(file.charAt(0));
+      })
+      .map(function(file) {
+        return file.replace(base, '').replace(/^(\/)|(\\)/g, '')
+          .replace(/(\/)|(\\)/g, opts.delimiter || '_')
+          .toLowerCase();
+      });
   }
 };
 
