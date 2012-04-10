@@ -15,7 +15,9 @@ task.loadNpmTasks('grunt-impress');
 
 ## Usage
 
-    cat presentation.md | grunt impress
+```sh
+cat presentation.md | grunt impress
+```
 
 This task is "stream-aware", eg. it should be usable in a unix-like way
 and be composable / pipable.
@@ -42,10 +44,8 @@ impress.pipe(process.stdout);
 * **text** raw markdown content
 * **options** Optional Hash configuration
 
-More options will be added here.
-
-Convenient way to add options per slides, directly in markdown content is
-planned (to setup impressjs attributes)
+More options will be added here. Convenient way to add options per slides,
+directly in markdown content is planned (to setup impressjs attributes)
 
 `Impress` is a Stream object, and triggers the following events:
 
