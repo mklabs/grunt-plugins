@@ -14,14 +14,11 @@ module.exports = function(grunt) {
     watch: {
       files: '<config:lint.files>',
       tasks: 'lint test'
-    },
-    jshint: {
-      options: '<json:.jshintrc>'
     }
   });
 
   // help plugin
-  grunt.task.loadNpmTasks('grunt-help');
+  // grunt.task.loadNpmTasks('grunt-help');
 
   // Default task.
   grunt.registerTask('default', 'init');

@@ -21,8 +21,8 @@ module.exports = function(grunt) {
     if(!fs.statSync(filepath).isDirectory()) return;
     if(f === 'init') return;
 
-    // require the tasks
-    grunt.loadTasks(join(__dirname, f));
+    // require the tasks, only the "grunt.js" file.
+    grunt.loadTasks(join(__dirname, f, 'tasks'));
   });
 
 };
