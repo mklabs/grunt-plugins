@@ -3,10 +3,10 @@
 
 Collection of growing Grunt plugins and utilities
 
-## Description
+*I'll probably create a **bunch** of grunt plugins. Instead of creating a new
+repo for each one, this repository keeps track of these.*
 
-I'll probably create a **bunch** of grunt plugins. Instead of creating a new
-repo for each one, this repository keeps track of these.
+## Description
 
 The `master` branch is my actual "grunt user dir" (`~/.grunt/` on poxis,
 `%USERPROFILE/.grunt/` on windows) and keep tracks of additional tasks, plugins
