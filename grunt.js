@@ -13,6 +13,9 @@ module.exports = function(grunt) {
   // grunt fetch
   grunt.task.loadNpmTasks('grunt-fetch');
 
+  // grunt less | https://github.com/jharding/grunt-less
+  grunt.task.loadNpmTasks('grunt-less');
+
   // Default task.
   // My default task is the help one.
   grunt.registerTask('default', 'help');
