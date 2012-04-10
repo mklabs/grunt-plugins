@@ -3,8 +3,8 @@
 
 Collection of growing Grunt plugins and utilities
 
-*I'll probably create a **bunch** of grunt plugins. Instead of creating a new
-repo for each one, this repository keeps track of these.*
+_I'll probably create a **bunch** of grunt plugins. Instead of creating a new
+repo for each one, this repository keeps track of these._
 
 ## Description
 
