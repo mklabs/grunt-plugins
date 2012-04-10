@@ -1,0 +1,553 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=1024" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <title>Automating Website Optimizations</title>
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:regular,semibold,italic,italicsemibold|PT+Sans:400,700,400italic,700italic|PT+Serif:400,700,400italic,700italic" rel="stylesheet" />
+    <link href="../css/style.css" rel="stylesheet" />
+</head>
+
+<body class="impress-not-supported">
+<div class="fallback-message">
+  <p>Your browser <b>doesn't support the features required</b> by impress.js, so you are presented with a simplified version of this presentation.</p>
+  <p>For the best experience please use the latest <b>Chrome</b>, <b>Safari</b> or <b>Firefox</b> browser.</p>
+</div>
+
+<!--
+
+Impress.js documentation, based on https://github.com/bartaz/impress.js/blob/master/index.html
+---------------------------------------------------------------------------------------------
+
+The `id` attribute of the step element is used to identify it in the URL, but it's optional.
+If it is not defined, it will get a default value of `step-N` where N is a number of slide.
+
+So to make a summary of all the possible attributes used to position presentation steps, we have:
+
+* `data-x`, `data-y`, `data-z`  they define the position of **the center** of step element on
+    the canvas in pixels; their default value is 0;
+* `data-rotate-x`, `data-rotate-y`, 'data-rotate-z`, `data-rotate` they define the rotation of
+    the element around given axis in degrees; their default value is 0; `data-rotate` and `data-rotate-z`
+    are exactly the same;
+* `data-scale` defines the scale of step element; default value is 1
+
+These values are used by impress.js in CSS transformation functions, so for more information consult
+CSS transfrom docs: https://developer.mozilla.org/en/CSS/transform
+
+The `impress()` function also gives you access to the API that controls the presentation.
+
+Just store the result of the call:
+
+    var api = impress();
+
+and you will get three functions you can call:
+
+    `api.init()` - initializes the presentation,
+    `api.next()` - moves to next step of the presentation,
+    `api.prev()` - moves to previous step of the presentation,
+    `api.goto( idx | id | element, [duration] )` - moves the presentation to the step given by its index number
+            id or the DOM element; second parameter can be used to define duration of the transition in ms,
+            but it's optional - if not provided default transition duration for the presentation will be used.
+
+You can also simply call `impress()` again to get the API, so `impress().next()` is also allowed.
+Don't worry, it wont initialize the presentation again.
+
+For some example uses of this API check the last part of the source of impress.js where the API
+is used in event handlers.
+
+specific to this plugin stuff
+-----------------------------
+
+if not defined, the attributes takes the following defaults
+
+* x= x+1000                     | 0
+* y=y                           | -1000
+* z=z                           | 0
+* rotate-x=rotate-x             | 0
+* rotate-y=rotate-y             | 0
+* rotate-z=rotate-z             | 0
+* scale=scale                   | 1
+
+-->
+
+<div id="impress">
+
+  
+  <section class="step slide" data-x="1" data-y="-1000" data-z="undefined" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1">
+    <h2>Automating Website Optimizations</h2>
+<ul>
+<li><a href="../">Introduction</a></li>
+<li>» <a href="../grunt/">Grunt</a></li>
+<li><a href="../grunt-plugins/">Grunt plugins</a></li>
+<li><a href="../node-build-script/">h5bp/node-build-script</a></li>
+</ul>
+
+  </section>
+  
+  <section class="step slide" data-x="1051" data-y="-1000" data-z="undefined" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1">
+    <hr>
+<pre><code class="js">{
+  <span class="string">"author"</span>: <span class="string">"Mickael Daniel"</span>,
+  <span class="string">"github"</span>: <span class="string">"http://github.com/mklabs"</span>,
+  <span class="string">"twitter"</span>: <span class="string">"<span class="variable">@mklabs</span>"</span>,
+  <span class="string">"date"</span>: <span class="string">"new Date('Mon Apr 10 2012 19:00:00 GMT+0200')"</span>
+  <span class="string">"dependencies"</span>: {
+    <span class="string">"your-attention"</span>: <span class="string">"1.0.0"</span>
+  }
+}</code></pre>
+
+  </section>
+  
+  <section class="step slide" data-x="2101" data-y="-1000" data-z="undefined" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1">
+    <h2>Introducing Grunt</h2>
+<blockquote>
+<p>I’ve been working on a new open-source project lately. To be honest,
+I’ve been so busy coding that I haven’t had time to write about it, but
+since everyone at Bocoup got together the other day and told me I had to
+write a blog post—apparently they’re pretty excited—I’d like to
+introduce grunt.
+
+</p>
+<p>in <em><a href="http://weblog.bocoup.com/introducing-grunt/">Introducing Grunt</a></em>
+
+
+</p>
+</blockquote>
+<pre><code class="sh" style="opacity: 0.25;">
+grunt: a task-based command line build tool for JavaScript projects. (v0.3.7)
+
+Usage
+ grunt [options] [task [task ...]]
+
+Options
+    --help, -h  Display this help text.                                        
+        --base  Specify an alternate base path. By default, all file paths are 
+                relative to the "grunt.js" gruntfile. (grunt.file.setBase) *   
+    --no-color  Disable colored output.                                        
+      --config  Specify an alternate "grunt.js" gruntfile.                     
+   --debug, -d  Enable debugging mode for tasks that support it. For detailed  
+                error stack traces, specify --debug 9.                         
+   --force, -f  A way to force your way past warnings. Want a suggestion? Don't
+                use this option, fix your code.                                
+       --tasks  Additional directory paths to scan for task and "extra" files. 
+                (grunt.loadTasks) *                                            
+         --npm  Npm-installed grunt plugins to scan for task and "extra" files.
+                (grunt.loadNpmTasks) *                                         
+    --no-write  Disable writing files (dry run).                               
+ --verbose, -v  Verbose mode. A lot more information output.                   
+     --version  Print the grunt version.                                       
+
+Options marked with * have methods exposed via the grunt API and should instead
+be specified inside the "grunt.js" gruntfile wherever possible.
+
+Available tasks
+        concat  Concatenate files. *                                           
+          init  Generate project scaffolding from a predefined template.       
+          lint  Validate files with JSHint. *                                  
+           min  Minify files with UglifyJS. *                                  
+         qunit  Run QUnit unit tests in a headless PhantomJS instance. *       
+        server  Start a static web server.                                     
+          test  Run unit tests with nodeunit. *                                
+         watch  Run predefined tasks whenever watched files change.            
+       default  Alias for "init" task.                                         
+       impress  Reads a markdown, Generates a basic impress.js presentation    
+       install  Install an npm package right into your ~/.grunt directory      
+          less  compiles less files *                                          
+
+Tasks run in the order specified. Arguments may be passed to tasks that accept
+them by using semicolons, like "lint:files". Tasks marked with * are "multi
+tasks" and will iterate over all sub-targets if no argument is specified.
+
+The list of available tasks may change based on tasks directories or grunt
+plugins specified in the "grunt.js" gruntfile or via command-line options.
+
+For more information, see https://github.com/cowboy/grunt
+</code></pre>
+
+
+  </section>
+  
+  <section class="step slide" data-x="3151" data-y="-1000" data-z="undefined" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1">
+    <h2>What is grunt?</h2>
+<p>Grunt is a task-based command line build tool for JavaScript projects.
+
+</p>
+<ul>
+<li><p>by <a href="https://github.com/cowboy/">&quot;cowboy&quot; Ben Alman</a></p>
+</li>
+<li><p><a href="https://github.com/cowboy/grunt/">GitHub Repository</a></p>
+</li>
+<li><p><a href="https://github.com/cowboy/grunt/blob/master/docs/toc.md">Documentation</a></p>
+</li>
+</ul>
+
+  </section>
+  
+  <section class="step slide" data-x="4201" data-y="-1000" data-z="undefined" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1">
+    <h2>Install!</h2>
+<p><strong><code>npm install grunt -g</code></strong>
+
+</p>
+
+  </section>
+  
+  <section class="step slide" data-x="5251" data-y="-1000" data-z="undefined" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1">
+    <h2>Intro</h2>
+<ul>
+<li><p>Each time grunt is run</p>
+<ul>
+<li><p><em>Looks in the current directory for the gruntfile, a file named grunt.js</em></p>
+</li>
+<li><p><em>Walks the directory structure until it finds one.</em></p>
+</li>
+</ul>
+</li>
+</ul>
+
+  </section>
+  
+  <section class="step slide" data-x="6301" data-y="-1000" data-z="undefined" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1">
+    <h3>Gruntfile</h3>
+<blockquote>
+<p><a href="https://github.com/cowboy/grunt/blob/master/docs/getting_started.md#the-grunt-js-file-aka-gruntfile">The grunt.js file, aka &quot;gruntfile&quot;</a>
+
+</p>
+</blockquote>
+<p>Typically placed in the root of the project repository
+
+</p>
+<ul>
+<li>Project configuration</li>
+<li>Loading grunt plugins or tasks folders</li>
+<li>Tasks and helpers</li>
+</ul>
+
+  </section>
+  
+  <section class="step slide" data-x="7351" data-y="-1000" data-z="undefined" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1">
+    <hr>
+<pre><code class="js">module<span class="preprocessor">.exports</span> = function(grunt) {
+  // Project configuration.
+  grunt<span class="preprocessor">.initConfig</span>({
+    lint: {
+      all: [<span class="string">"grunt.js"</span>, <span class="string">"lib/**/*.js"</span><span class="string">"test/**/*.js"</span>]
+    },
+    jshint: {
+      options: {
+        browser: true
+      }
+    }
+  })<span class="comment">;</span>
+  // Load tasks from <span class="string">"grunt-sample"</span> grunt plugin installed via Npm.
+  grunt<span class="preprocessor">.loadNpmTasks</span>(<span class="string">"grunt-sample"</span>)<span class="comment">;</span>
+  // Default task.
+  grunt<span class="preprocessor">.registerTask</span>(<span class="string">"default"</span>, <span class="string">"lint sample"</span>)<span class="comment">;</span>
+}<span class="comment">;</span></code></pre>
+
+  </section>
+  
+  <section class="step slide" data-x="8401" data-y="-1000" data-z="undefined" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1">
+    <h3>Gruntfile</h3>
+<blockquote>
+<p><a href="https://github.com/cowboy/grunt/blob/master/docs/getting_started.md#project-configuration">Project configuration</a>
+
+</p>
+</blockquote>
+<pre style="margin: 0;"><code class="js" style="font-size: 0.4em; color: #222;">
+// Project configuration.
+grunt.initConfig({
+  // Project metadata, used by some directives, helpers and tasks.
+  meta: {},
+  // Lists of files to be concatenated, used by the "concat" task.
+  concat: {},
+  // Lists of files to be linted with JSHint, used by the "lint" task.
+  lint: {},
+  // Lists of files to be minified with UglifyJS, used by the "min" task.
+  min: {},
+  // Lists of files or URLs to be unit tested with QUnit, used by the "qunit" task.
+  qunit: {},
+  // Configuration options for the "server" task.
+  server: {},
+  // Lists of files to be unit tested with Nodeunit, used by the "test" task.
+  test: {},
+  // Configuration options for the "watch" task.
+  watch: {},
+  // Global configuration options for JSHint.
+  jshint: {},
+  // Global configuration options for UglifyJS.
+  uglify: {}
+});
+</code></pre>
+
+
+  </section>
+  
+  <section class="step slide" data-x="9451" data-y="-1000" data-z="undefined" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1">
+    <h3>Tasks</h3>
+<p><em>Tasks are grunt&#39;s core functionality</em>
+
+</p>
+<pre><code class="sh"><span class="variable">$ </span><span class="identifier">grunt</span> <span class="identifier">lint</span> <span class="identifier"><span class="keymethods">test</span></span></code></pre>
+<p><em>Runs both the <code>lint</code> and <code>test</code> tasks</em>
+
+
+</p>
+
+  </section>
+  
+  <section class="step slide" data-x="10501" data-y="-1000" data-z="undefined" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1">
+    <h3>Built-in Tasks</h3>
+<pre><code class="sh"><span class="title">concat</span> - <span class="label">Concatenate</span> files.
+<span class="title">init</span> - <span class="label">Generate</span> project scaffolding from a predefined template.
+<span class="title">lint</span> - <span class="label">Validate</span> files with <span class="label">JSHint</span>.
+<span class="title">min</span> - <span class="label">Minify</span> files with <span class="label">UglifyJS</span>.
+<span class="title">qunit</span> - <span class="label">Run</span> <span class="label">QUnit</span> unit tests <span class="keyword">in</span> a headless <span class="label">PhantomJS</span> <span class="class"><span class="keyword">instance</span>.</span>
+<span class="title">server</span> - <span class="label">Start</span> a static web server.
+<span class="title">test</span> - <span class="label">Run</span> unit tests with nodeunit.
+<span class="title">watch</span> - <span class="label">Run</span> predefined tasks whenever watched files change.</code></pre>
+
+  </section>
+  
+  <section class="step slide" data-x="11551" data-y="-1000" data-z="undefined" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1">
+    <h3>Custom tasks</h3>
+<ul>
+<li>In addition to the built-in tasks<ul>
+<li>we can create our own tasks!</li>
+</ul>
+</li>
+</ul>
+<pre><code class="js">module.exports = <span class="function"><span class="keyword">function</span><span class="params">(grunt)</span> {</span>
+  <span class="comment">// Create a new task.</span>
+  grunt.registerTask(<span class="string">"awesome"</span>, <span class="string">"Print out "</span>awesome!!!<span class="string">""</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+    <span class="keyword">var</span> awesome = grunt.helper(<span class="string">"awesome"</span>);
+    grunt.log.write(awesome);
+  });
+  <span class="comment">// Register a helper.</span>
+  grunt.registerHelper(<span class="string">"awesome"</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+    <span class="keyword">return</span> <span class="string">"awesome!!!"</span>;
+  });
+};</code></pre>
+
+  </section>
+  
+  <section class="step slide" data-x="12601" data-y="-1000" data-z="undefined" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1">
+    <h3>Types of tasks</h3>
+<ul>
+<li><a href="https://github.com/cowboy/grunt/blob/master/docs/types_of_tasks.md#alias-tasks">Alias-tasks</a></li>
+<li><a href="https://github.com/cowboy/grunt/blob/master/docs/types_of_tasks.md#multi-tasks">Multi-tasks</a></li>
+<li><a href="https://github.com/cowboy/grunt/blob/master/docs/types_of_tasks.md#custom-tasks">Custom-tasks</a></li>
+</ul>
+
+  </section>
+  
+  <section class="step slide" data-x="13651" data-y="-1000" data-z="undefined" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1">
+    <h3>Tasks API</h3>
+<ul>
+<li><a href="https://github.com/cowboy/grunt/blob/master/docs/api.md#grunt-registertask">grunt.registerTask</a></li>
+<li><a href="https://github.com/cowboy/grunt/blob/master/docs/api.md#grunt-registermultitask">grunt.registerMultiTask</a></li>
+<li><a href="https://github.com/cowboy/grunt/blob/master/docs/api.md#grunt-registerinittask">grunt.registerInitTask</a></li>
+</ul>
+
+  </section>
+  
+  <section class="step slide" data-x="14701" data-y="-1000" data-z="undefined" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1">
+    <h3>Helpers</h3>
+<blockquote>
+<p><a href="https://github.com/cowboy/grunt/blob/master/docs/api.md#defining-and-executing-helpers">Defining and Executing Helpers</a>
+
+
+</p>
+</blockquote>
+<p>Utility functions that can be used by any task.
+
+</p>
+<pre><code class="sh">grunt.registerHelper(<span class="string">"now"</span>, <span class="function"><span class="keyword">function</span><span class="params">(message)</span> {</span>
+  <span class="keyword">return</span> message + <span class="string">" "</span> + <span class="keyword">new</span> Date();
+});</code></pre>
+
+  </section>
+  
+  <section class="step slide" data-x="15751" data-y="-1000" data-z="undefined" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1">
+    <h3>Helpers</h3>
+<p>An then in any task, the <code>now</code> helper is &quot;now&quot; available.
+
+</p>
+<pre><code class="js">grunt<span class="preprocessor">.registerTask</span>(<span class="string">"time"</span>, <span class="string">"What time is it"</span>, function() {
+  grunt<span class="preprocessor">.log</span><span class="preprocessor">.writeln</span>(grunt<span class="preprocessor">.helper</span>(<span class="string">"now"</span>, <span class="string">"Hello LyonJS"</span>))<span class="comment">;</span>
+})<span class="comment">;</span></code></pre>
+
+  </section>
+  
+  <section class="step slide" data-x="16801" data-y="-1000" data-z="undefined" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1">
+    <h3>Grunt API</h3>
+<p>Grunt provides a lot of utilities, and has a really extensive
+documentation, explaining each part in details.
+
+</p>
+<p><strong><a href="https://github.com/cowboy/grunt/blob/master/docs/api.md#readme">Grunt API</a></strong>
+
+
+</p>
+<p><a href="https://github.com/cowboy/grunt/blob/master/docs/api_config.md">Config</a> /
+<a href="https://github.com/cowboy/grunt/blob/master/docs/api_fail.md">Fail</a> /
+<a href="https://github.com/cowboy/grunt/blob/master/docs/api_file.md">File</a> /
+<a href="https://github.com/cowboy/grunt/blob/master/docs/api_log.md">Log</a> /
+<a href="https://github.com/cowboy/grunt/blob/master/docs/api_task.md">Tasks</a> /
+<a href="https://github.com/cowboy/grunt/blob/master/docs/api_template.md">Template</a> /
+<a href="https://github.com/cowboy/grunt/blob/master/docs/api_utils.md">Utils</a>
+
+</p>
+<p>Amazing job on documentation
+
+</p>
+
+  </section>
+  
+  <section class="step slide" data-x="17851" data-y="-1000" data-z="undefined" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1">
+    <h1>The Init Task</h1>
+
+  </section>
+  
+  <section class="step slide" data-x="18901" data-y="-1000" data-z="undefined" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1">
+    <hr>
+<p><strong><a href="http://weblog.bocoup.com/introducing-grunt/#initializing-a-new-project">Initializing a new project</a></strong>
+
+</p>
+<blockquote>
+<p>This might be my favorite grunt feature. The init task initializes a
+new project, based on the current environment and the answers to a few
+questions. Once complete, a grunt.js configuration file will be
+generated along with a complete directory structure, including a basic
+readme, license, package.json, sample source files and unit tests
+(etc). The exact files and contents created depend on the template
+chosen along with the answers to the questions asked.
+
+</p>
+<p>Now, instead of sketching out an idea in a quick one-off gist, I can
+create the scaffolding for an entire project in about 10 seconds,
+“fill in the blanks,” and then run grunt to lint, test, concat and
+minify my code. If everything passes, I can then commit and push my
+code. And anyone who wants to contribute to the project can install
+grunt and do the same.
+
+</p>
+<p>There are currently a handful of built-in init templates, including a
+“jquery” template that has been designed to create a basic jQuery
+plugin compatible with the upcoming jQuery plugins site, and a generic
+“gruntfile” template that can be used to very quickly add a grunt.js
+gruntfile to an existing project. You can override init template files
+if you want to customize a built-in init template or create your own.
+And your templates don’t need to be grunt-related. You could create an
+init template that builds out models or views or package.json
+files—whatever you need.
+
+</p>
+<p>If you want to try the init task, cd to an empty directory, run the
+command grunt init:jquery (assuming grunt is already installed) and
+follow the on-screen prompts. When grunt is done creating files, poke
+around. Run grunt. See what happens.
+
+</p>
+</blockquote>
+
+  </section>
+  
+  <section class="step slide" data-x="19951" data-y="-1000" data-z="undefined" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1">
+    <h3>grunt init</h3>
+<pre><code class="sh"><span class="variable">$ </span><span class="identifier">grunt</span> <span class="identifier">init</span>
+<span class="constant">Running</span> <span class="string">"init"</span> <span class="identifier">task</span>
+<span class="constant">This</span> <span class="identifier">task</span> <span class="identifier">will</span> <span class="identifier">create</span> <span class="identifier">one</span> <span class="identifier"><span class="keyword">or</span></span> <span class="identifier">more</span> <span class="identifier">files</span> <span class="identifier"><span class="keyword">in</span></span> <span class="identifier">the</span> <span class="identifier">current</span> <span class="identifier">directory</span>, <span class="identifier">based</span> <span class="identifier">on</span> <span class="identifier">the</span>
+<span class="identifier">environment</span> <span class="identifier"><span class="keyword">and</span></span> <span class="identifier">the</span> <span class="identifier">answers</span> <span class="identifier">to</span> <span class="identifier">a</span> <span class="identifier">few</span> <span class="identifier">questions</span>. <span class="constant">Note</span> <span class="identifier">that</span> <span class="identifier">answering</span> <span class="string">"?"</span> <span class="identifier">to</span> <span class="identifier">any</span>
+<span class="identifier">question</span> <span class="identifier">will</span> <span class="identifier">show</span> <span class="identifier">question</span>-<span class="identifier">specific</span> <span class="identifier">help</span> <span class="identifier"><span class="keyword">and</span></span> <span class="identifier">answering</span> <span class="string">"none"</span> <span class="identifier">to</span> <span class="identifier">most</span> <span class="identifier">questions</span>
+<span class="identifier">will</span> <span class="identifier">leave</span> <span class="identifier">its</span> <span class="identifier">value</span> <span class="identifier">blank</span>.
+
+<span class="constant">Loading</span> <span class="identifier">init</span> <span class="identifier">template</span>...<span class="constant">ERROR</span>
+>> <span class="constant">A</span> <span class="identifier">valid</span> <span class="identifier">template</span> <span class="identifier"><span class="keymethods">name</span></span> <span class="identifier">must</span> <span class="identifier">be</span> <span class="identifier">specified</span>, <span class="identifier">eg</span>. <span class="string">"grunt init:commonjs"</span>. <span class="constant">The</span>
+>> <span class="identifier">currently</span>-<span class="identifier">available</span> <span class="identifier">init</span> <span class="identifier">templates</span> <span class="identifier">are</span><span class="symbol">:</span>
+>> <span class="identifier">commonjs</span> - <span class="constant">Create</span> <span class="identifier">a</span> <span class="identifier">commonjs</span> <span class="class"><span class="keyword">module</span>, <span class="title">including</span> <span class="title">Nodeunit</span> <span class="title">unit</span> <span class="title">tests</span>.</span>
+>> <span class="identifier">gruntfile</span> - <span class="constant">Create</span> <span class="identifier">a</span> <span class="identifier">basic</span> <span class="identifier">grunt</span>.<span class="identifier">js</span> <span class="identifier">gruntfile</span>.
+>> <span class="identifier">gruntplugin</span> - <span class="constant">Create</span> <span class="identifier">a</span> <span class="identifier">grunt</span> <span class="identifier">plugin</span>, <span class="identifier">including</span> <span class="constant">Nodeunit</span> <span class="identifier">unit</span> <span class="identifier">tests</span>.
+>> <span class="identifier">jquery</span> - <span class="constant">Create</span> <span class="identifier">a</span> <span class="constant">jQuery</span> <span class="identifier">plugin</span>, <span class="identifier">including</span> <span class="constant">QUnit</span> <span class="identifier">unit</span> <span class="identifier">tests</span>.
+>> <span class="identifier">node</span> - <span class="constant">Create</span> <span class="identifier">a</span> <span class="constant">Node</span>.<span class="identifier">js</span> <span class="class"><span class="keyword">module</span>, <span class="title">including</span> <span class="title">Nodeunit</span> <span class="title">unit</span> <span class="title">tests</span>.</span></code></pre>
+
+  </section>
+  
+  <section class="step slide" data-x="21001" data-y="-1000" data-z="undefined" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1">
+    <h3>grunt init</h3>
+<p>Works with <em>init templates</em>
+
+</p>
+<p>Templates are composed of two parts:
+
+</p>
+<ul>
+<li><p><strong>an &quot;init template&quot;</strong>:
+a script that describes what happens when <code>grunt init:TEMPLATE</code> is
+run (prompts, file-to-be-copied, etc.)</p>
+</li>
+<li><p>a <code>root/</code> folder</p>
+</li>
+</ul>
+
+  </section>
+  
+  <section class="step slide" data-x="22051" data-y="-1000" data-z="undefined" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1">
+    <h2>grunt init</h2>
+<p>Init templates may use <a href="https://github.com/cowboy/grunt/blob/master/docs/task_init.md#renaming-or-excluding-template-files">rename
+rules</a>,
+or be overriden by files in your grunt user directory (<code>~/.grunt/</code>)
+
+</p>
+<p>There&#39;s more power built-in the init task, check out the <a href="https://github.com/cowboy/grunt/blob/master/docs/task_init.md">init task
+doc</a> for
+more informations.
+
+</p>
+
+  </section>
+  
+  <section class="step slide" data-x="23101" data-y="-1000" data-z="undefined" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1">
+    <hr>
+<p style="font-size: 2em; text-align: center; margin-left: 1em;">Happy grunting!</p>
+
+<p><i class="buddy" style="color: #222; opacity: 0.1;"></i>
+
+</p>
+
+  </section>
+  
+  <section class="step slide" data-x="24151" data-y="-1000" data-z="undefined" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1">
+    <h2>Next!</h2>
+
+  </section>
+  ;
+
+</div>
+
+
+<script>
+/**
+ * impress.js
+ *
+ * impress.js is a presentation tool based on the power of CSS3 transforms and transitions
+ * in modern browsers and inspired by the idea behind prezi.com.
+ *
+ *
+ * Copyright 2011-2012 Bartek Szopka (@bartaz)
+ *
+ * Released under the MIT and GPL Licenses.
+ *
+ * ------------------------------------------------
+ *  author:  Bartek Szopka
+ *  version: 0.5.3
+ *  url:     http://bartaz.github.com/impress.js/
+ *  source:  http://github.com/bartaz/impress.js/
+ *//*jshint bitwise:true, curly:true, eqeqeq:true, forin:true, latedef:true, newcap:true,
+         noarg:true, noempty:true, undef:true, strict:true, browser:true */// You are one of those who like to know how thing work inside?
+// Let me show you the cogs that make impress.js run...
+(function(a,b){"use strict";var c=function(){var b=a.createElement("dummy").style,c="Webkit Moz O ms Khtml".split(" "),d={};return function(a){if(typeof d[a]=="undefined"){var e=a.charAt(0).toUpperCase()+a.substr(1),f=(a+" "+c.join(e+" ")+e).split(" ");d[a]=null;for(var g in f)if(b[f[g]]!==undefined){d[a]=f[g];break}}return d[a]}}(),d=function(a){return[].slice.call(a)},e=function(a,b){var d,e;for(d in b)b.hasOwnProperty(d)&&(e=c(d),e!==null&&(a.style[e]=b[d]));return a},f=function(a,b){return isNaN(a)?b||0:Number(a)},g=function(b){return a.getElementById(b)},h=function(b,c){return c=c||a,c.querySelector(b)},i=function(b,c){return c=c||a,d(c.querySelectorAll(b))},j=function(b,c,d){var e=a.createEvent("CustomEvent");e.initCustomEvent(c,!0,!0,d),b.dispatchEvent(e)},k=function(a){return" translate3d("+a.x+"px,"+a.y+"px,"+a.z+"px) "},l=function(a,b){var c=" rotateX("+a.x+"deg) ",d=" rotateY("+a.y+"deg) ",e=" rotateZ("+a.z+"deg) ";return b?e+d+c:c+d+e},m=function(a){return" scale("+a+") "},n=function(a){return" perspective("+a+"px) "},o=function(){return g(b.location.hash.replace(/^#\/?/,""))},p=function(a){var c=b.innerHeight/a.height,d=b.innerWidth/a.width,e=c>d?d:c;return a.maxScale&&e>a.maxScale&&(e=a.maxScale),a.minScale&&e<a.minScale&&(e=a.minScale),e},q=a.body,r=navigator.userAgent.toLowerCase(),s=c("perspective")!==null&&q.classList&&q.dataset&&r.search(/(iphone)|(ipod)|(android)/)===-1;s?(q.classList.remove("impress-not-supported"),q.classList.add("impress-supported")):q.className+=" impress-not-supported ";var t={},u={width:1024,height:768,maxScale:1,minScale:0,perspective:1e3,transitionDuration:1e3},v=function(){return!1},w=b.impress=function(c){if(!s)return{init:v,"goto":v,prev:v,next:v};c=c||"impress";if(t["impress-root-"+c])return t["impress-root-"+c];var r={},w=null,x=null,y=null,z=null,A=null,B=g(c),C=a.createElement("div"),D=!1,E=null,F=function(a){E!==a&&(j(a,"impress:stepenter"),E=a)},G=function(a){E===a&&(j(a,"impress:stepleave"),E=null)},H=function(a,b){var c=a.dataset,d={translate:{x:f(c.x),y:f(c.y),z:f(c.z)},rotate:{x:f(c.rotateX),y:f(c.rotateY),z:f(c.rotateZ||c.rotate)},scale:f(c.scale,1),el:a};a.id||(a.id="step-"+(b+1)),r["impress-"+a.id]=d,e(a,{position:"absolute",transform:"translate(-50%,-50%)"+k(d.translate)+l(d.rotate)+m(d.scale),transformStyle:"preserve-3d"})},I=function(){if(D)return;var b=h("meta[name='viewport']")||a.createElement("meta");b.content="width=device-width, minimum-scale=1, maximum-scale=1, user-scalable=no",b.parentNode!==a.head&&(b.name="viewport",a.head.appendChild(b));var g=B.dataset;z={width:f(g.width,u.width),height:f(g.height,u.height),maxScale:f(g.maxScale,u.maxScale),minScale:f(g.minScale,u.minScale),perspective:f(g.perspective,u.perspective),transitionDuration:f(g.transitionDuration,u.transitionDuration)},A=p(z),d(B.childNodes).forEach(function(a){C.appendChild(a)}),B.appendChild(C),a.documentElement.style.height="100%",e(q,{height:"100%",overflow:"hidden"});var k={position:"absolute",transformOrigin:"top left",transition:"all 0s ease-in-out",transformStyle:"preserve-3d"};e(B,k),e(B,{top:"50%",left:"50%",transform:n(z.perspective/A)+m(A)}),e(C,k),q.classList.remove("impress-disabled"),q.classList.add("impress-enabled"),y=i(".step",B),y.forEach(H),x={translate:{x:0,y:0,z:0},rotate:{x:0,y:0,z:0},scale:1},D=!0,j(B,"impress:init",{api:t["impress-root-"+c]})},J=function(a){return typeof a=="number"?a=a<0?y[y.length+a]:y[a]:typeof a=="string"&&(a=g(a)),a&&a.id&&r["impress-"+a.id]?a:null},K=null,L=function(a,c){if(!D||!(a=J(a)))return!1;b.scrollTo(0,0);var d=r["impress-"+a.id];w&&(w.classList.remove("active"),q.classList.remove("impress-on-"+w.id)),a.classList.add("active"),q.classList.add("impress-on-"+a.id);var g={rotate:{x:-d.rotate.x,y:-d.rotate.y,z:-d.rotate.z},translate:{x:-d.translate.x,y:-d.translate.y,z:-d.translate.z},scale:1/d.scale},h=g.scale>=x.scale;c=f(c,z.transitionDuration);var i=c/2;a===w&&(A=p(z));var j=g.scale*A;w&&w!==a&&G(w),e(B,{transform:n(z.perspective/j)+m(j),transitionDuration:c+"ms",transitionDelay:(h?i:0)+"ms"}),e(C,{transform:l(g.rotate,!0)+k(g.translate),transitionDuration:c+"ms",transitionDelay:(h?0:i)+"ms"});if(x.scale===g.scale||x.rotate.x===g.rotate.x&&x.rotate.y===g.rotate.y&&x.rotate.z===g.rotate.z&&x.translate.x===g.translate.x&&x.translate.y===g.translate.y&&x.translate.z===g.translate.z)i=0;return x=g,w=a,b.clearTimeout(K),K=b.setTimeout(function(){F(w)},c+i),a},M=function(){var a=y.indexOf(w)-1;return a=a>=0?y[a]:y[y.length-1],L(a)},N=function(){var a=y.indexOf(w)+1;return a=a<y.length?y[a]:y[0],L(a)};return B.addEventListener("impress:init",function(){y.forEach(function(a){a.classList.add("future")}),B.addEventListener("impress:stepenter",function(a){a.target.classList.remove("past"),a.target.classList.remove("future"),a.target.classList.add("present")},!1),B.addEventListener("impress:stepleave",function(a){a.target.classList.remove("present"),a.target.classList.add("past")},!1)},!1),B.addEventListener("impress:init",function(){var a="";B.addEventListener("impress:stepenter",function(c){b.location.hash=a="#/"+c.target.id},!1),b.addEventListener("hashchange",function(){b.location.hash!==a&&L(o())},!1),L(o()||y[0],0)},!1),q.classList.add("impress-disabled"),t["impress-root-"+c]={init:I,"goto":L,next:N,prev:M}};w.supported=s})(document,window),function(a,b){"use strict";var c=function(a,b){var c=null;return function(){var d=this,e=arguments;clearTimeout(c),c=setTimeout(function(){a.apply(d,e)},b)}};a.addEventListener("impress:init",function(d){var e=d.detail.api;a.addEventListener("keydown",function(a){(a.keyCode===9||a.keyCode>=32&&a.keyCode<=34||a.keyCode>=37&&a.keyCode<=40)&&a.preventDefault()},!1),a.addEventListener("keyup",function(a){if(a.keyCode===9||a.keyCode>=32&&a.keyCode<=34||a.keyCode>=37&&a.keyCode<=40){switch(a.keyCode){case 33:case 37:case 38:e.prev();break;case 9:case 32:case 34:case 39:case 40:e.next()}a.preventDefault()}},!1),a.addEventListener("click",function(b){var c=b.target;while(c.tagName!=="A"&&c!==a.documentElement)c=c.parentNode;if(c.tagName==="A"){var d=c.getAttribute("href");d&&d[0]==="#"&&(c=a.getElementById(d.slice(1)))}e.goto(c)&&(b.stopImmediatePropagation(),b.preventDefault())},!1),a.addEventListener("click",function(b){var c=b.target;while((!c.classList.contains("step")||!!c.classList.contains("active"))&&c!==a.documentElement)c=c.parentNode;e.goto(c)&&b.preventDefault()},!1),a.addEventListener("touchstart",function(a){if(a.touches.length===1){var c=a.touches[0].clientX,d=b.innerWidth*.3,f=null;c<d?f=e.prev():c>b.innerWidth-d&&(f=e.next()),f&&a.preventDefault()}},!1),b.addEventListener("resize",c(function(){e.goto(a.querySelector(".active"),500)},250),!1)},!1)}(document,window);
+</script>
+<script src="../js/script.js"></script>
+</body>
+</html>

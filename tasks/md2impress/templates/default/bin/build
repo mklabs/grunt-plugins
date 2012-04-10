@@ -1,0 +1,19 @@
+#!/bin/bash
+
+mkdir -p grunt grunt-plugins node-build-script
+
+cat index.md | grunt impress > index.html
+echo done Generating intro
+
+cat grunt.md | grunt impress > grunt/index.html
+echo done Generating grunt
+
+cat grunt-plugins.md | grunt impress > grunt-plugins/index.html
+echo done Generating grunt-plugins
+
+./bin/build-from-wiki
+echo done Generating node-build-script
+
+echo Starting server
+serve
+

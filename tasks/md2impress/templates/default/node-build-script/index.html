@@ -1,0 +1,669 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=1024" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <title>Automating Website Optimizations</title>
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:regular,semibold,italic,italicsemibold|PT+Sans:400,700,400italic,700italic|PT+Serif:400,700,400italic,700italic" rel="stylesheet" />
+    <link href="../css/style.css" rel="stylesheet" />
+</head>
+
+<body class="impress-not-supported">
+<div class="fallback-message">
+  <p>Your browser <b>doesn't support the features required</b> by impress.js, so you are presented with a simplified version of this presentation.</p>
+  <p>For the best experience please use the latest <b>Chrome</b>, <b>Safari</b> or <b>Firefox</b> browser.</p>
+</div>
+
+<!--
+
+Impress.js documentation, based on https://github.com/bartaz/impress.js/blob/master/index.html
+---------------------------------------------------------------------------------------------
+
+The `id` attribute of the step element is used to identify it in the URL, but it's optional.
+If it is not defined, it will get a default value of `step-N` where N is a number of slide.
+
+So to make a summary of all the possible attributes used to position presentation steps, we have:
+
+* `data-x`, `data-y`, `data-z`  they define the position of **the center** of step element on
+    the canvas in pixels; their default value is 0;
+* `data-rotate-x`, `data-rotate-y`, 'data-rotate-z`, `data-rotate` they define the rotation of
+    the element around given axis in degrees; their default value is 0; `data-rotate` and `data-rotate-z`
+    are exactly the same;
+* `data-scale` defines the scale of step element; default value is 1
+
+These values are used by impress.js in CSS transformation functions, so for more information consult
+CSS transfrom docs: https://developer.mozilla.org/en/CSS/transform
+
+The `impress()` function also gives you access to the API that controls the presentation.
+
+Just store the result of the call:
+
+    var api = impress();
+
+and you will get three functions you can call:
+
+    `api.init()` - initializes the presentation,
+    `api.next()` - moves to next step of the presentation,
+    `api.prev()` - moves to previous step of the presentation,
+    `api.goto( idx | id | element, [duration] )` - moves the presentation to the step given by its index number
+            id or the DOM element; second parameter can be used to define duration of the transition in ms,
+            but it's optional - if not provided default transition duration for the presentation will be used.
+
+You can also simply call `impress()` again to get the API, so `impress().next()` is also allowed.
+Don't worry, it wont initialize the presentation again.
+
+For some example uses of this API check the last part of the source of impress.js where the API
+is used in event handlers.
+
+specific to this plugin stuff
+-----------------------------
+
+if not defined, the attributes takes the following defaults
+
+* x= x+1000                     | 0
+* y=y                           | -1000
+* z=z                           | 0
+* rotate-x=rotate-x             | 0
+* rotate-y=rotate-y             | 0
+* rotate-z=rotate-z             | 0
+* scale=scale                   | 1
+
+-->
+
+<div id="impress">
+
+  
+  <section class="step slide" data-x="1" data-y="-1000" data-z="undefined" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1">
+    <h2>Automating Website Optimizations</h2>
+<ul>
+<li><a href="./">Introduction</a></li>
+<li><a href="./grunt/">Grunt</a></li>
+<li><a href="./grunt-plugins/">Grunt plugins</a></li>
+<li>» <a href="./node-build-script/">h5bp/node-build-script</a></li>
+</ul>
+
+  </section>
+  
+  <section class="step slide" data-x="1051" data-y="-1000" data-z="undefined" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1">
+    <hr>
+<pre><code class="js">{
+  <span class="string">"author"</span>: <span class="string">"Mickael Daniel"</span>,
+  <span class="string">"github"</span>: <span class="string">"http://github.com/mklabs"</span>,
+  <span class="string">"twitter"</span>: <span class="string">"<span class="variable">@mklabs</span>"</span>,
+  <span class="string">"date"</span>: <span class="string">"new Date('Mon Apr 10 2012 19:00:00 GMT+0200')"</span>
+  <span class="string">"dependencies"</span>: {
+    <span class="string">"your-attention"</span>: <span class="string">"1.0.0"</span>
+  }
+}</code></pre>
+
+  </section>
+  
+  <section class="step slide" data-x="2101" data-y="-1000" data-z="undefined" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1">
+    <h2>Introduction</h2>
+<p>Intro
+
+</p>
+
+  </section>
+  
+  <section class="step slide" data-x="3151" data-y="-1000" data-z="undefined" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1">
+    <h1>Task - clean</h1>
+<p>The clean task will remove and delete any previous build dirs (which
+are mapping <code>staging</code> and <code>output</code> config value).
+
+</p>
+<pre><code class="js"><span class="title">staging</span>:<span class="string"> 'intermediate/'</span>,
+
+// final build output
+<span class="title">output</span>:<span class="string"> 'publish/'</span>,</code></pre>
+
+  </section>
+  
+  <section class="step slide" data-x="4201" data-y="-1000" data-z="undefined" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1">
+    <h2>Helpers</h2>
+
+  </section>
+  
+  <section class="step slide" data-x="5251" data-y="-1000" data-z="undefined" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1">
+    <h3>rimraf</h3>
+<p><code>rimraf</code> is the helper wrapper for
+<a href="https://github.com/isaacs/rimraf#readme">rimraf</a> package. The given
+<code>cb</code> callback if passed in will make the call asynchronous, otherwise
+<code>rimraf.sync</code> is used.
+
+</p>
+<pre><code><span class="title">task</span>.helper('rimraf', dir, cb);</code></pre>
+
+  </section>
+  
+  <section class="step slide" data-x="6301" data-y="-1000" data-z="undefined" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1">
+    <h1>Task - mkdirs</h1>
+<p>The mkdirs task is working in tandem with the clean one, and creates the
+necessary build dirs.
+
+</p>
+<pre><code class="js">// the staging directory used during the process
+staging: 'intermediate/',
+
+// final build output
+output: 'publish/',
+
+// filter any files matching one of the below pattern during mkdirs task
+exclude: 'build/** node_modules/** grunt.js package.json *.md'.split(' '),
+
+mkdirs: {
+  staging: '<span class="tag">&lt;<span class="title">config:exclude</span>></span>',
+  output: '<span class="tag">&lt;<span class="title">config:exclude</span>></span>'
+},</code></pre>
+<p>Just as the clean task, config subprop are used to create the
+directories. A basic mapping is done in configuration to get back the
+directory values, (eg. <code>config(task.target) --&gt; config(&#39;staging&#39;)</code>).
+
+</p>
+<p>Values for each is an array of files to filter, eg. they&#39;ll not be
+copied over during the process. These are
+<a href="https://github.com/isaacs/minimatch#readme">minimatch</a> patterns.
+
+</p>
+
+  </section>
+  
+  <section class="step slide" data-x="7351" data-y="-1000" data-z="undefined" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1">
+    <h2>Helpers</h2>
+
+  </section>
+  
+  <section class="step slide" data-x="8401" data-y="-1000" data-z="undefined" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1">
+    <h3>mkdirs</h3>
+<p><code>mkdir</code> helper is a basic wrapper for
+<a href="https://github.com/substack/node-mkdirp#readme">node-mkdirp</a>.  Takes a
+<code>directory</code> path to create, process is async if a valid callback
+is passed in, otherwise <code>mkdirp.sync(dir)</code> is used.
+
+</p>
+<pre><code class="js"><span class="title">task</span>.helper('mkdir', dir, cb);</code></pre>
+
+  </section>
+  
+  <section class="step slide" data-x="9451" data-y="-1000" data-z="undefined" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1">
+    <h3>copy</h3>
+<p><code>copy</code> helper uses <a href="https://github.com/AvianFlu/ncp#readme">ncp</a>
+and <a href="https://github.com/isaacs/minimatch#readme">minimatch</a> to copy
+the files under the current directory to the specified <code>dir</code>,
+optionnaly ignoring files specified by the <code>options.ignore</code> property.
+
+</p>
+<p><code>options.ignore</code> can be a String of space delimited glob patterns,
+an Array of glob patterns, or a filter function.
+
+</p>
+<p>This helper is asynchronous only. Paths are always relative to
+current working directory.
+
+</p>
+<pre><code class="js">task.helper(<span class="string">'copy'</span>, <span class="keyword">source</span>, dest, opts, function(e) {
+  <span class="keyword">if</span>(e) <span class="keyword">log</span>.<span class="keyword">error</span>(e.stack || e.message);
+  <span class="keyword">else</span> <span class="keyword">log</span>.ok();
+  cb(!e);
+});</code></pre>
+<ul>
+<li>source     - Path to the source directory</li>
+<li>dest       - where the files will be copied to</li>
+<li>opts       - (optional) An Hash object with an <code>ignore</code> property</li>
+<li>cb         - callback to call on completion</li>
+</ul>
+
+  </section>
+  
+  <section class="step slide" data-x="10501" data-y="-1000" data-z="undefined" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1">
+    <h1>Task - connect</h1>
+<p>The connect is a special little utility task working in tandem with the
+watch one.
+
+</p>
+<p>It&#39;s a slight variation of the serve command, but includes / injects
+some socket.io magic to be able to reload any opened webpage in your
+browsers.
+
+</p>
+<p>Basically, the idea is that anytime you change a watched files
+(js/css/templates, etc.), a new build is triggered and an event is
+emitted back to any connected clients to reload pages automatically.
+
+</p>
+<pre><code class="js"><span class="method">connect:</span> {
+
+  <span class="method">intermediate:</span> {
+    <span class="method">port:</span> <span class="number">3000</span>,
+    <span class="method">logs:</span> <span class="string">'dev'</span>,
+    <span class="method">dirs:</span> <span class="keyword">true</span>
+  },
+
+  <span class="method">publish:</span> {
+    <span class="method">port:</span> <span class="number">3001</span>,
+    <span class="method">logs:</span> <span class="string">'default'</span>,
+    <span class="method">dirs:</span> <span class="keyword">true</span>
+  }
+
+}</code></pre>
+
+  </section>
+  
+  <section class="step slide" data-x="11551" data-y="-1000" data-z="undefined" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1">
+    <h2>Helpers</h2>
+<blockquote>
+<p>todo
+
+</p>
+</blockquote>
+
+  </section>
+  
+  <section class="step slide" data-x="12601" data-y="-1000" data-z="undefined" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1">
+    <h1>Task - css</h1>
+<p>The css tasks will handle stylesheets optimizations. These optimizations
+include:
+
+</p>
+<ul>
+<li>CSS <code>@import</code> statements inlining (borrowed to r.js)</li>
+<li>CSS minification (through
+<a href="https://github.com/GoalSmashers/clean-css">CSSMin</a>, todo consider
+using <a href="https://github.com/ded/sqwish">sqwish</a>, probably through
+<a href="https://github.com/jzaefferer/grunt-css">grunt-css</a>)</li>
+</ul>
+<p>Here&#39;s the basic configuration:
+
+</p>
+<pre><code class="js">css: {
+  'publish/css/style.css':<span class="sqbracket"> [ 'css/style.css' ]</span>
+},</code></pre>
+<p>Just as the concat / min task, the config subprop is used as the
+destination files, any expanded files in the config subprob value will
+be optimized and concat&#39;d into the destination file.
+
+</p>
+<p>The <code>css</code> task works pretty much the same as grunt&#39;s min task. The task
+target is the destination, data is an array of glob patterns. These
+files are concataned and run through <a href="http://requirejs.org/docs/optimization.html#onecss">requirejs
+optimizer</a> to handle
+@import inlines in CSS files.
+
+</p>
+
+  </section>
+  
+  <section class="step slide" data-x="13651" data-y="-1000" data-z="undefined" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1">
+    <h2>Helpers</h2>
+
+  </section>
+  
+  <section class="step slide" data-x="14701" data-y="-1000" data-z="undefined" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1">
+    <h3>mincss</h3>
+<p><code>mincss</code> basic utility to concat CSS files and run them through
+<a href="https://github.com/GoalSmashers/clean-css">cleanCSS</a>, might opt to use
+grunt-css plugin. Takes an array of
+files to concat and minified. The minificaton only happens if the
+<code>options.nocompress</code> value is not set to <code>true</code> (default is <code>false</code>)
+
+</p>
+<pre><code class="js"><span class="keyword">var</span> css = task.helper(<span class="string">'mincss'</span>, files, options));</code></pre>
+
+  </section>
+  
+  <section class="step slide" data-x="15751" data-y="-1000" data-z="undefined" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1">
+    <h3>rjs:optimize:css</h3>
+<p><code>rjs:optimize:css</code> is an helper using rjs to optimize a single file,
+mainly to properly import multi-level of @import statements, which can be
+tricky with all the url rewrites.
+
+</p>
+<p>file     - Path to the css file to optimize
+options  - (optional) rjs configuration
+cb       - callback function to call on completion
+
+</p>
+<pre><code class="js">task.helper(<span class="string">'rjs:optimize:css'</span>, cssIn, <span class="keyword">this</span>.<span class="keyword">async</span>());</code></pre>
+
+  </section>
+  
+  <section class="step slide" data-x="16801" data-y="-1000" data-z="undefined" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1">
+    <h1>Task - rev</h1>
+<p>The rev task is a really simple one. Its role is to read the content of
+a given file, generate a hash and prepend that hash to the original
+filename.
+
+</p>
+<pre><code class="js"><span class="method">rev:</span> {
+  <span class="method">js:</span> [<span class="string">'publish/js/*.js'</span>],
+  <span class="method">css:</span> [<span class="string">'publish/css/*.css'</span>],
+  <span class="method">img:</span> [<span class="string">'publish/img/*'</span>]
+},</code></pre>
+<p>From this configuration example, the rev task will iterate through each
+expanded files for js / css / img subtasks and generate a hash from
+their content and rename each file accordingly.
+
+</p>
+<p>A <code>scripts.js</code> file will be renamed into something like
+<code>12345678.scripts.js</code>. The hash will change only when the content
+changes.
+
+</p>
+
+  </section>
+  
+  <section class="step slide" data-x="17851" data-y="-1000" data-z="undefined" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1">
+    <h2>Helpers</h2>
+
+  </section>
+  
+  <section class="step slide" data-x="18901" data-y="-1000" data-z="undefined" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1">
+    <h3>hash</h3>
+<p><code>hash</code> helper takes care of files revving, by renaming any files in the
+given <code>files</code> pattern(s), with passed in <code>options</code>.
+
+</p>
+<pre><code class="js">task.helper(<span class="literal">'hash'</span>, files, options);</code></pre>
+<ul>
+<li>files      - String or Array of glob pattern</li>
+<li>options    - (optional) An Hash object where:<ul>
+<li>cwd     - Base directory to work from, glob patterns are
+prepended to this path.</li>
+</ul>
+</li>
+</ul>
+
+  </section>
+  
+  <section class="step slide" data-x="19951" data-y="-1000" data-z="undefined" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1">
+    <h3>md5</h3>
+<p><code>md5</code> helper is a basic wrapper around crypto.createHash, with given
+<code>algorithm</code> and <code>encoding</code>. Both are optional and defaults to <code>md5</code> and
+<code>hex</code> values.
+
+</p>
+<pre><code class="js">task.helper(<span class="string">'md5'</span>, <span class="keyword">file</span>, algorithm, encoding);</code></pre>
+
+  </section>
+  
+  <section class="step slide" data-x="21001" data-y="-1000" data-z="undefined" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1">
+    <h1>Task - usemin</h1>
+<p>Replaces references ton non-optimized scripts / stylesheets into a
+set of html files (or any template / views).
+
+</p>
+<p>Usemin task is probably the trickiest one. It&#39;ll replace references to
+non minified scripts / stylesheets to their optimized / versioned
+equivalent.
+
+</p>
+<pre><code class="js"><span class="tag">usemin</span>: <span class="rules">{
+  <span class="rule"><span class="attribute">files</span>:<span class="value"> [<span class="string">'publish/*.html'</span>]
+</span>}</span></span></code></pre>
+<p>In this configuration, it&#39;ll handle the replacement for any html files
+located under the publish directory.
+
+</p>
+<p>Right now the replacement is based on the filename parsed from content
+and the files present in according directory (eg. looking up matching
+revved filename into <code>output/</code> dir to figure out the hash generated).
+
+</p>
+<p>If you&#39;d like a little bit more flexibility, you can use &quot;directives&quot;, some
+special kind of html comments surrounding the part of html we want to replace
+(original idea from <a href="https://github.com/necolas">@necolas</a> in:
+<a href="https://github.com/h5bp/html5-boilerplate/issues/831">#831</a>)
+
+</p>
+<p>There is no need for JSDOM for this, this is plain regexp (JSDOM required
+for data-build attributes).
+
+</p>
+<p>Ex:
+
+</p>
+<pre><code class="html"><span class="comment">&lt;!-- build:css css/site.css --></span>
+<span class="tag">&lt;<span class="title">link</span> <span class="attribute">rel</span>=<span class="value">"stylesheet"</span> <span class="attribute">href</span>=<span class="value">"css/style.css"</span>></span>
+<span class="comment">&lt;!-- endbuild --></span></code></pre>
+<p>Results in:
+
+</p>
+<pre><code class="html"><span class="tag">&lt;<span class="title">link</span> <span class="attribute">rel</span>=<span class="value">"stylesheet"</span> <span class="attribute">href</span>=<span class="value">"css/site.css"</span>></span></code></pre>
+<p>A directive is composed of the following part:
+
+</p>
+<pre><code class="html"><span class="comment">&lt;!-- build:&lt;target> &lt;output> --></span>
+... block ...
+<span class="comment">&lt;!-- endbuild --></span></code></pre>
+<ul>
+<li><p><code>&lt;target&gt;</code>
+A known target is required (<code>css</code> or <code>js</code>). It&#39;ll namely allow you
+to replace the html &quot;block&quot; with appropriate tag (eg. a <code>&lt;link&gt;</code> for
+stylesheets, a <code>&lt;script&gt;</code> for js files, the task won&#39;t guess this from markup
+for you)</p>
+</li>
+<li><p><code>&lt;output&gt;</code>
+Path to the optimized asset. The html &quot;block&quot; is replaced with
+according tag (depending on <code>&lt;target&gt;</code>) while replacing the src or href
+attribute with the <code>&lt;output&gt;</code> value.</p>
+</li>
+<li><p><code>... block ...</code>
+Anything inside the <code>&lt;!-- build.. --&gt;</code> and <code>&lt;!-- endbuild --&gt;</code> is replaced
+depending on <code>&lt;target&gt;</code> and <code>&lt;output&gt;</code> values.</p>
+</li>
+</ul>
+<p>The resulting html is then passed through the global replace, looking up
+matching revved filename in the output directory (defaults to <code>publish/</code>),
+replacing references to their hash-prepended version.
+
+</p>
+<p>This &quot;directives&quot; system will provide you a nice level of flexibility, and the
+ability to be very descriptive on what gets replaced and by what.
+</p>
+
+  </section>
+  
+  <section class="step slide" data-x="22051" data-y="-1000" data-z="undefined" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1">
+    <h1>Dom</h1>
+<p>The <code>dom</code> task is a special task using <code>jsdom</code> to do some nasty thing to
+a bunch of html files. The idea is to rely on a set of selectors and
+plugins.
+
+</p>
+<p>These plugins are special jQuery plugins that can use the node api to do
+their task.
+
+</p>
+<p>The following plugins are implemented
+
+</p>
+<ul>
+<li><strong>css</strong> Relies on @import statement mainly which are inlined (with
+nested path rewrite) to serve a single optimized stylesheet.</li>
+</ul>
+<ul>
+<li><strong>js</strong> Concats, minify through uglify and serve a single concat&#39;d /
+minified script.</li>
+</ul>
+<p>Each plugin is able to modify the DOM tree to replace references to
+optimized files.
+
+</p>
+
+  </section>
+  
+  <section class="step slide" data-x="23101" data-y="-1000" data-z="undefined" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1">
+    <h2>Usage</h2>
+<p>Using the <code>h5bp</code> executable:
+
+</p>
+<pre><code><span class="title">h5bp</span> dom</code></pre>
+
+  </section>
+  
+  <section class="step slide" data-x="24151" data-y="-1000" data-z="undefined" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1">
+    <h2>Configuration</h2>
+<p>Minimal, most of the configuration is derived from html markup, by using
+special semantics on <code>data-*</code> attributes, probably always namespaced to
+<code>data-build-*</code>.
+
+</p>
+<pre><code class="js">var h5bp = require(<span class="comment">'node-build-script');</span>
+
+module.exports = <span class="keyword">function</span>(grunt) {
+
+  grunt.initConfig({
+      ...,
+
+      dom: {
+          files: [<span class="comment">'*.html', 'views/**/*.html'],</span>
+          <span class="comment">'script[data-build]'    : h5bp.plugins.script,</span>
+          <span class="comment">'link'                  : h5bp.plugins.link,</span>
+          <span class="comment">'img'                   : h5bp.plugins.img,</span>
+          <span class="comment">'script, link, img'     : h5bp.plugins.rev</span>
+      },
+
+      ...
+  });
+
+};</code></pre>
+<ul>
+<li><strong>files</strong>: list of glob pattern to expand. The files in the resulted
+array are then passed through each of the processors.</li>
+</ul>
+<ul>
+<li><strong>script, link, img</strong> a list of selectors may be associated with
+plugins that will be executed with the set of matching DOM elements.</li>
+</ul>
+<p>selectors / plugins are run sequentially, and the DOM tree is modified
+all allong the way to the last selector / plugin couple. Read that
+the selectors result depends on the modified DOM tree from previous
+processors.
+
+</p>
+<p>One can use a totally different set of selectors, with custom plugin,
+ex.
+
+</p>
+<ul>
+<li>just <code>script</code>, <code>link</code> and <code>img</code></li>
+<li>or <code>.js-plugin</code></li>
+<li>or <code>script[src*=&quot;jquery&quot;]</code> or <code>script[src*=backbone]</code></li>
+<li><code>script[data-main]</code> --&gt; triggers a r.js build</li>
+</ul>
+
+  </section>
+  
+  <section class="step slide" data-x="25201" data-y="-1000" data-z="undefined" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1">
+    <h2>Plugin API</h2>
+<p>Plugins are valid commonjs package and should expose a single function,
+a jQuery like plugin that will be run with the associated set of DOM
+elements for a given selector.
+
+</p>
+<p>Plugins needs to export a few things:
+
+</p>
+<ul>
+<li><strong>name</strong> is the plugin name and used to extend the jQuery namespace,
+eg its prototype <code>$.fn</code></li>
+<li><strong>defaults</strong> a Hash object of default configuration value.</li>
+<li><strong>handler</strong> the main function, that is the jQuery plugin
+implementation.</li>
+</ul>
+<p>Here&#39;s the <code>link</code> plugin:
+
+</p>
+<pre><code class="javascript">var plugin = module.exports;
+
+// give it a name
+plugin.name = <span class="literal">'link'</span>;
+
+// give it some defaults
+plugin.defaults = {
+  dir: <span class="keyword">process</span>.cwd(),
+  output: 'css/style.min.css'
+};
+
+// <span class="keyword">and</span> the main plugin handler, mixed <span class="keyword">in</span> jsdom's jquery as $.fn.pluginame
+plugin.handler = <span class="keyword">function</span> link($, options, cb) {
+  options = options || {};
+
+  // size <span class="keyword">of</span> the passed <span class="keyword">in</span> collection,
+  // used <span class="keyword">to</span> emit `success` <span class="keyword">on</span> last iteration.
+  var ln = this.length;
+
+  // don't act <span class="keyword">on</span> zero-element
+  <span class="keyword">if</span>(!ln) {
+    cb();
+    <span class="keyword">return</span> this;
+  }
+
+  // default <span class="keyword">configuration</span> here..
+  options.whatev = options.whatev || <span class="literal">'whatev'</span>;
+
+  // will hold the concatenated script,
+  // <span class="keyword">in</span> the order they appear <span class="keyword">in</span> the collection
+  var files = [];
+
+  <span class="keyword">return</span> this.each(<span class="keyword">function</span>(i, target) {
+    var el = $(this); // === $(target)
+
+    var src = el.attr(<span class="literal">'href'</span>),
+      last = ln === (i + <span class="number">1</span>),
+      <span class="keyword">file</span> = path.resolve(options.dir, src);
+
+    <span class="keyword">if</span>(!path.existsSync(<span class="keyword">file</span>)) <span class="keyword">return</span> cb(<span class="keyword">new</span> Error('no ' + src));
+    files = files.concat(fs.readFileSync(<span class="keyword">file</span>, <span class="literal">'utf8'</span>));
+
+    // remove dom element from dom tree, <span class="keyword">when</span> <span class="keyword">not</span> <span class="keyword">on</span> last <span class="keyword">loop</span>
+    <span class="keyword">if</span>(!last) <span class="keyword">return</span> el.remove();
+
+    var output = el.data('build') || options.output;
+    // update dom tree accordingly
+    el.attr(<span class="literal">'href'</span>, output);
+
+    // finally, write <span class="keyword">to</span> destination output
+    log.writeln((' › writing <span class="keyword">to</span> output ' + output).bold);
+    task.helper('mkdir', path.dirname(path.resolve(output)));
+    fs.writeFile(output, task.helper('mincss', files), cb);
+  });
+};</code></pre>
+<p>One could think do to some crazy stuff on their html files, and use a
+jQuery like api mixed here and there with the node api to handle all
+sort of things with a bunch of custom plugins, on an arbitrary set of
+selectors.
+</p>
+
+  </section>
+  ;
+
+</div>
+
+
+<script>
+/**
+ * impress.js
+ *
+ * impress.js is a presentation tool based on the power of CSS3 transforms and transitions
+ * in modern browsers and inspired by the idea behind prezi.com.
+ *
+ *
+ * Copyright 2011-2012 Bartek Szopka (@bartaz)
+ *
+ * Released under the MIT and GPL Licenses.
+ *
+ * ------------------------------------------------
+ *  author:  Bartek Szopka
+ *  version: 0.5.3
+ *  url:     http://bartaz.github.com/impress.js/
+ *  source:  http://github.com/bartaz/impress.js/
+ *//*jshint bitwise:true, curly:true, eqeqeq:true, forin:true, latedef:true, newcap:true,
+         noarg:true, noempty:true, undef:true, strict:true, browser:true */// You are one of those who like to know how thing work inside?
+// Let me show you the cogs that make impress.js run...
+(function(a,b){"use strict";var c=function(){var b=a.createElement("dummy").style,c="Webkit Moz O ms Khtml".split(" "),d={};return function(a){if(typeof d[a]=="undefined"){var e=a.charAt(0).toUpperCase()+a.substr(1),f=(a+" "+c.join(e+" ")+e).split(" ");d[a]=null;for(var g in f)if(b[f[g]]!==undefined){d[a]=f[g];break}}return d[a]}}(),d=function(a){return[].slice.call(a)},e=function(a,b){var d,e;for(d in b)b.hasOwnProperty(d)&&(e=c(d),e!==null&&(a.style[e]=b[d]));return a},f=function(a,b){return isNaN(a)?b||0:Number(a)},g=function(b){return a.getElementById(b)},h=function(b,c){return c=c||a,c.querySelector(b)},i=function(b,c){return c=c||a,d(c.querySelectorAll(b))},j=function(b,c,d){var e=a.createEvent("CustomEvent");e.initCustomEvent(c,!0,!0,d),b.dispatchEvent(e)},k=function(a){return" translate3d("+a.x+"px,"+a.y+"px,"+a.z+"px) "},l=function(a,b){var c=" rotateX("+a.x+"deg) ",d=" rotateY("+a.y+"deg) ",e=" rotateZ("+a.z+"deg) ";return b?e+d+c:c+d+e},m=function(a){return" scale("+a+") "},n=function(a){return" perspective("+a+"px) "},o=function(){return g(b.location.hash.replace(/^#\/?/,""))},p=function(a){var c=b.innerHeight/a.height,d=b.innerWidth/a.width,e=c>d?d:c;return a.maxScale&&e>a.maxScale&&(e=a.maxScale),a.minScale&&e<a.minScale&&(e=a.minScale),e},q=a.body,r=navigator.userAgent.toLowerCase(),s=c("perspective")!==null&&q.classList&&q.dataset&&r.search(/(iphone)|(ipod)|(android)/)===-1;s?(q.classList.remove("impress-not-supported"),q.classList.add("impress-supported")):q.className+=" impress-not-supported ";var t={},u={width:1024,height:768,maxScale:1,minScale:0,perspective:1e3,transitionDuration:1e3},v=function(){return!1},w=b.impress=function(c){if(!s)return{init:v,"goto":v,prev:v,next:v};c=c||"impress";if(t["impress-root-"+c])return t["impress-root-"+c];var r={},w=null,x=null,y=null,z=null,A=null,B=g(c),C=a.createElement("div"),D=!1,E=null,F=function(a){E!==a&&(j(a,"impress:stepenter"),E=a)},G=function(a){E===a&&(j(a,"impress:stepleave"),E=null)},H=function(a,b){var c=a.dataset,d={translate:{x:f(c.x),y:f(c.y),z:f(c.z)},rotate:{x:f(c.rotateX),y:f(c.rotateY),z:f(c.rotateZ||c.rotate)},scale:f(c.scale,1),el:a};a.id||(a.id="step-"+(b+1)),r["impress-"+a.id]=d,e(a,{position:"absolute",transform:"translate(-50%,-50%)"+k(d.translate)+l(d.rotate)+m(d.scale),transformStyle:"preserve-3d"})},I=function(){if(D)return;var b=h("meta[name='viewport']")||a.createElement("meta");b.content="width=device-width, minimum-scale=1, maximum-scale=1, user-scalable=no",b.parentNode!==a.head&&(b.name="viewport",a.head.appendChild(b));var g=B.dataset;z={width:f(g.width,u.width),height:f(g.height,u.height),maxScale:f(g.maxScale,u.maxScale),minScale:f(g.minScale,u.minScale),perspective:f(g.perspective,u.perspective),transitionDuration:f(g.transitionDuration,u.transitionDuration)},A=p(z),d(B.childNodes).forEach(function(a){C.appendChild(a)}),B.appendChild(C),a.documentElement.style.height="100%",e(q,{height:"100%",overflow:"hidden"});var k={position:"absolute",transformOrigin:"top left",transition:"all 0s ease-in-out",transformStyle:"preserve-3d"};e(B,k),e(B,{top:"50%",left:"50%",transform:n(z.perspective/A)+m(A)}),e(C,k),q.classList.remove("impress-disabled"),q.classList.add("impress-enabled"),y=i(".step",B),y.forEach(H),x={translate:{x:0,y:0,z:0},rotate:{x:0,y:0,z:0},scale:1},D=!0,j(B,"impress:init",{api:t["impress-root-"+c]})},J=function(a){return typeof a=="number"?a=a<0?y[y.length+a]:y[a]:typeof a=="string"&&(a=g(a)),a&&a.id&&r["impress-"+a.id]?a:null},K=null,L=function(a,c){if(!D||!(a=J(a)))return!1;b.scrollTo(0,0);var d=r["impress-"+a.id];w&&(w.classList.remove("active"),q.classList.remove("impress-on-"+w.id)),a.classList.add("active"),q.classList.add("impress-on-"+a.id);var g={rotate:{x:-d.rotate.x,y:-d.rotate.y,z:-d.rotate.z},translate:{x:-d.translate.x,y:-d.translate.y,z:-d.translate.z},scale:1/d.scale},h=g.scale>=x.scale;c=f(c,z.transitionDuration);var i=c/2;a===w&&(A=p(z));var j=g.scale*A;w&&w!==a&&G(w),e(B,{transform:n(z.perspective/j)+m(j),transitionDuration:c+"ms",transitionDelay:(h?i:0)+"ms"}),e(C,{transform:l(g.rotate,!0)+k(g.translate),transitionDuration:c+"ms",transitionDelay:(h?0:i)+"ms"});if(x.scale===g.scale||x.rotate.x===g.rotate.x&&x.rotate.y===g.rotate.y&&x.rotate.z===g.rotate.z&&x.translate.x===g.translate.x&&x.translate.y===g.translate.y&&x.translate.z===g.translate.z)i=0;return x=g,w=a,b.clearTimeout(K),K=b.setTimeout(function(){F(w)},c+i),a},M=function(){var a=y.indexOf(w)-1;return a=a>=0?y[a]:y[y.length-1],L(a)},N=function(){var a=y.indexOf(w)+1;return a=a<y.length?y[a]:y[0],L(a)};return B.addEventListener("impress:init",function(){y.forEach(function(a){a.classList.add("future")}),B.addEventListener("impress:stepenter",function(a){a.target.classList.remove("past"),a.target.classList.remove("future"),a.target.classList.add("present")},!1),B.addEventListener("impress:stepleave",function(a){a.target.classList.remove("present"),a.target.classList.add("past")},!1)},!1),B.addEventListener("impress:init",function(){var a="";B.addEventListener("impress:stepenter",function(c){b.location.hash=a="#/"+c.target.id},!1),b.addEventListener("hashchange",function(){b.location.hash!==a&&L(o())},!1),L(o()||y[0],0)},!1),q.classList.add("impress-disabled"),t["impress-root-"+c]={init:I,"goto":L,next:N,prev:M}};w.supported=s})(document,window),function(a,b){"use strict";var c=function(a,b){var c=null;return function(){var d=this,e=arguments;clearTimeout(c),c=setTimeout(function(){a.apply(d,e)},b)}};a.addEventListener("impress:init",function(d){var e=d.detail.api;a.addEventListener("keydown",function(a){(a.keyCode===9||a.keyCode>=32&&a.keyCode<=34||a.keyCode>=37&&a.keyCode<=40)&&a.preventDefault()},!1),a.addEventListener("keyup",function(a){if(a.keyCode===9||a.keyCode>=32&&a.keyCode<=34||a.keyCode>=37&&a.keyCode<=40){switch(a.keyCode){case 33:case 37:case 38:e.prev();break;case 9:case 32:case 34:case 39:case 40:e.next()}a.preventDefault()}},!1),a.addEventListener("click",function(b){var c=b.target;while(c.tagName!=="A"&&c!==a.documentElement)c=c.parentNode;if(c.tagName==="A"){var d=c.getAttribute("href");d&&d[0]==="#"&&(c=a.getElementById(d.slice(1)))}e.goto(c)&&(b.stopImmediatePropagation(),b.preventDefault())},!1),a.addEventListener("click",function(b){var c=b.target;while((!c.classList.contains("step")||!!c.classList.contains("active"))&&c!==a.documentElement)c=c.parentNode;e.goto(c)&&b.preventDefault()},!1),a.addEventListener("touchstart",function(a){if(a.touches.length===1){var c=a.touches[0].clientX,d=b.innerWidth*.3,f=null;c<d?f=e.prev():c>b.innerWidth-d&&(f=e.next()),f&&a.preventDefault()}},!1),b.addEventListener("resize",c(function(){e.goto(a.querySelector(".active"),500)},250),!1)},!1)}(document,window);
+</script>
+<script src="../js/script.js"></script>
+</body>
+</html>

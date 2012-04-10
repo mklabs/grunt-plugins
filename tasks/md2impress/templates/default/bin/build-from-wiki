@@ -1,0 +1,16 @@
+#!/bin/bash
+
+mkdir -p node-build-script
+
+cat node-build-script.md \
+  node-build-script.wiki/tasks/clean.md \
+  node-build-script.wiki/tasks/mkdirs.md \
+  node-build-script.wiki/tasks/connect.md \
+  node-build-script.wiki/tasks/css.md \
+  node-build-script.wiki/tasks/rev.md \
+  node-build-script.wiki/tasks/usemin.md \
+  node-build-script.wiki/dom.md |
+  grunt impress > node-build-script/index.html
+
+echo done generate node-build-script/index.html
+
