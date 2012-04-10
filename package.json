@@ -1,0 +1,21 @@
+{
+  "author": "mklabs",
+  "name": "grunt-fetch",
+  "description": "Simple task to fetch / unzip / untar a remote tarball in a single raw stream",
+  "version": "0.1.0",
+  "homepage": "https://github.com/mklabs/grunt-plugins/",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mklabs/grunt-plugins.git"
+  },
+  "main": "lib/fetch",
+  "engines": {
+    "node": "0.6.x"
+  },
+  "dependencies": {
+    "request": "~2.9.200",
+    "tar": "~0.1.13"
+  },
+  "devDependencies": {},
+  "optionalDependencies": {}
+}
