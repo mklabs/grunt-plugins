@@ -1,26 +1,11 @@
 module.exports = function(grunt) {
 
-  // Project configuration.
-  grunt.initConfig({
+  // Register each plugin in our grunt setup
 
-    // viewer: 'stdout',
-
-    lint: {
-      files: ['grunt.js', 'lib/**/*.js', 'tasks/**/*.js']
-    },
-    test: {
-      files: ['test/**/*.js']
-    },
-    watch: {
-      files: '<config:lint.files>',
-      tasks: 'lint test'
-    }
-  });
-
-  // help plugin
-  // grunt.task.loadNpmTasks('grunt-help');
+  grunt.task.loadNpmTasks('grunt-help');
 
   // Default task.
-  grunt.registerTask('default', 'init');
+  // My default task is the help one.
+  grunt.registerTask('default', 'help');
 
 };
