@@ -7,8 +7,6 @@
     "node": "0.6.x"
   },
   "dependencies": {
-    "request": "~2.9.153",
-    "tar": "~0.1.13",
     "grunt-help": "http://nodeload.github.com/mklabs/grunt-plugins/tarball/grunt-help",
     "grunt-impress": "http://nodeload.github.com/mklabs/grunt-plugins/tarball/grunt-impress",
     "grunt-fetch": "http://nodeload.github.com/mklabs/grunt-plugins/tarball/grunt-fetch",
