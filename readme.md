@@ -34,6 +34,15 @@ of the grunt plugins that are used.
 They may or may not be in npm's repository. In either case, `npm install` will
 work the same.
 
+## Install
+
+```sh
+$ git clone git@github.com:mklabs/grunt-plugins.git ~/.grunt
+$ cd ~/.grunt/
+$ npm install
+$ grunt --help
+```
+
 ## Plugins
 
 * **[grunt-help][]**: Get help on grunt. A task to add some help output ability to
