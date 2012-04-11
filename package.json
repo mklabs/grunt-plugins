@@ -1,11 +1,11 @@
 {
   "author": "mklabs",
-  "name": "md2impress",
+  "name": "grunt-impress",
   "description": "Internal tool to generate impress.js presentation from raw markdown",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "repository": {
     "type": "git",
-    "url": "git://github.com/mklabs/gruntfiles.git"
+    "url": "git://github.com/mklabs/grunt-plugins.git"
   },
   "engines": {
     "node": "0.6.x"
