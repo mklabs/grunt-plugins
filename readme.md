@@ -1,6 +1,12 @@
 # grunt-impress
 
-Reads markdown, Generates a basic impress.js presentation
+ A grunt plugin to read markdown → Generates a basic impress.js presentation.
+
+Includes the grunt task, and directory layout for grunt plugin compatibility but
+the main code and `Impress` stream implementation is in `lib/` and exposed as
+the package entry point, for usage in other contexts than grunt builds.
+
+Is a grunt plugin, but the package expose its main entry point
 
 ## Usage
 
