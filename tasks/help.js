@@ -9,27 +9,25 @@ var usage = [
   'page'
 ];
 
-module.exports = function(grunt) {
+module.exports = function(grunt, opts) {
 
-  var log = grunt.log,
-    verbose = grunt.verbose;
+  opts = opts || {};
+  opts.docspath = opts.docspath || opts.base || path.join(gruntpath, 'docs');
+  opts.files = opts.files || '**.md';
+  opts.prefix = opts.prefix || 'grunt help:';
 
+  var log = grunt.log;
   grunt.registerTask('help', 'Get help on grunt', function() {
       var cb = this.async(),
       flags = this.flags,
-      onGrunt = flags.grunt,
-      list = flags['?'];
+      onGrunt = flags.grunt;
+
+    opts.list = flags['?'];
 
     if(onGrunt) delete flags.grunt;
     var args = Object.keys(flags);
     resolve('grunt', function(err, gruntpath) {
       if(err) return cb(false);
-      var opts = grunt.config('help') || {};
-      opts.docspath = opts.docspath || opts.base || path.join(gruntpath, 'docs');
-      opts.files = opts.files || '**.md';
-      opts.prefix = opts.prefix || 'grunt help:';
-      opts.list = list;
-
       // if grunt was passed in one of the term, force the lookup in
       // builtin grunt docs no matter what
       if(onGrunt) opts = {
@@ -114,6 +112,8 @@ module.exports = function(grunt) {
     opts = opts || {};
     var base = opts.docspath || grunt.config('base') || process.cwd();
     files = base ? path.resolve(base, docs) : docs;
+    // always unix like path even on win32
+    base = base.replace(/\\/g, '/');
     return grunt.file.expandFiles(files)
       // filter the files with leading `_` or `.`
       .filter(function(file) {
