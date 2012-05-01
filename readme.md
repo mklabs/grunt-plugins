@@ -63,7 +63,6 @@ on the same boilerplate.
 
 So, you'll create a `package.json` with the following properties:
 
-
 ```js
 {
   "author": "me",
@@ -108,7 +107,30 @@ So, you'll create a `package.json` with the following properties:
     }
   }
 }
+```
 
+And next to this `package.json` file, you would run:
+
+```sh
+grunt-templates
+```
+
+Say this `package.json` is stored somewhere else, in a directory where
+you store all your template definition.
+
+You might do something like this:
+
+```sh
+$ mkdir new-project && cd new-project
+$ cat ~/.templates/h5bp-bootstrap-backbne-underscore.json | grunt-templates
+```
+
+You can pipe a package.json to `grunt-templates`, this means that you
+can create a project from a template definition stored in a remote
+location. Like a github repository, or a simple gist:
+
+```sh
+$ curl https://raw.github.com/gist/1af10088b747f5cf18f7/test.json | grunt-templates
 ```
 
 Or maybe you prefer putting this config in your project Gruntfile:
@@ -200,4 +222,19 @@ module.expoets = function(grunt) {
 }
 ```
 
+## Built-in task
 
+The plugin provides two conveniency task, you might want to load in your
+Gruntfile:
+
+* **install**
+does pretty much what is described in the previous example
+
+* **fetch**
+simplified version of install, you can `grunt fetch:user/repo`. It'll
+download the latest version of `user/repo` and store this in your
+`assets/vendor` directory.
+
+### Options
+
+* `--dir` change the default `assets/vendor` directory with `fetch` task
