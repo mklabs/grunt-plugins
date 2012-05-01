@@ -2,7 +2,9 @@
 
 Grunt templates
 
-## Getting Started Install this grunt plugin next to your project's
+## Getting Started
+
+Install this grunt plugin next to your project's
 [grunt.js gruntfile][getting_started] with: `npm install
 grunt-templates`
 
@@ -10,8 +12,8 @@ Then add this line to your project's `grunt.js` gruntfile:
 
 ```javascript task.loadNpmTasks('grunt-templates'); ```
 
-[grunt]: https://github.com/cowboy/grunt [getting_started]:
-https://github.com/cowboy/grunt/blob/master/docs/getting_started.md
+[grunt]: https://github.com/cowboy/grunt
+[getting_started]: https://github.com/cowboy/grunt/blob/master/docs/getting_started.md
 
 ## Synopsis
 
