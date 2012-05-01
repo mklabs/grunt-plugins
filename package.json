@@ -1,0 +1,38 @@
+{
+  "name": "grunt-templates",
+  "description": "Grunt templates",
+  "version": "0.1.0",
+  "homepage": "https://github.com/mk/grunt-templates",
+  "author": {
+    "name": "Mickael Daniel",
+    "email": "daniel.mickael@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mk/grunt-templates.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mk/grunt-templates/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/mk/grunt-templates/blob/master/LICENSE-MIT"
+    }
+  ],
+  "main": "grunt.js",
+  "bin": "bin/grunt-templates",
+  "engines": {
+    "node": "*"
+  },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "dependencies": {
+    "grunt": "~0.3.7"
+  },
+  "devDependencies": {
+    "grunt": "~0.3.7"
+  },
+  "keywords": []
+}
