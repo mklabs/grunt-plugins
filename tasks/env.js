@@ -22,8 +22,4 @@ module.exports = function(grunt) {
     grunt.loadTasks(path.join(nm, plugin, 'tasks'));
   });
 
-  // Default task.
-  // My default task is the help one.
-  grunt.registerTask('default', 'help');
-
 };
