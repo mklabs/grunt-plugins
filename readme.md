@@ -36,6 +36,10 @@ $ grunt-templates h5bp/html5-boilerplate
 A new project, based on your inputs, is created based on the lastest
 version of h5bp/html5-boilerplate repo.
 
+---
+
+# todo
+
 And then, you might want to add a bunch of stuff to this init template,
 you might want to fetch and replace the default h5bp's style.css by
 something else. You might want to create your very own boilerplate, a
