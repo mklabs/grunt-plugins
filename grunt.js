@@ -1,4 +1,10 @@
-module.exports = function(grunt) {
+
+module.exports = gruntConfig;
+
+gruntConfig.Template = require('./lib/template');
+
+
+function gruntConfig(grunt) {
 
   // Project configuration.
   grunt.initConfig({
@@ -37,4 +43,4 @@ module.exports = function(grunt) {
   // Default task.
   grunt.registerTask('default', 'lint test');
 
-};
+}
