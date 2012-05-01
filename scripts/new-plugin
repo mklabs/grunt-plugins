@@ -1,0 +1,22 @@
+#!/bin/bash
+
+[ "$1" == "" ] && echo "Must supply a branch name" && exit 1
+
+git symbolic-ref HEAD refs/heads/$1
+rm .git/index
+git clean -fdx
+
+mkdir grunt-$1 && cd grunt-$1
+grunt init:gruntplugin
+
+# bunch of prompts
+
+rm .npmignore
+mv README.md readme.md
+
+cd ..
+mv grunt-$1/* .
+
+git add .
+git commit -m "grunt init:gruntplugin $1"
+
