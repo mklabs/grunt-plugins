@@ -1,2 +1,11 @@
 #!/usr/bin/env node
-require('grunt').npmTasks('grunt-templates').cli();
+var path = require('path');
+
+var opts = require('nopt')(),
+  remain = opts.argv.remain;
+
+if(/\//.test(remain[0])) process.argv = process.argv.slice(0, 2)
+  .concat(('-b ' + process.cwd() + ' template:' + remain[0] + ' init:github').split(' '));
+
+require('grunt').npmTasks(path.join(__dirname, '../')).cli();
+

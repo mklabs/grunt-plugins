@@ -31,8 +31,6 @@ Say you want to create a new project, based on HTML5 Boilerplate.
 ```sh
 $ grunt-templates h5bp/html5-boilerplate
 # bunch of prompts
-
-
 ```
 
 A new project, based on your inputs, is created based on the lastest
@@ -138,7 +136,7 @@ Or maybe you prefer putting this config in your project Gruntfile:
 ```js
 var Template = require('grunt-templates').Template;
 
-module.expoets = function(grunt) {
+module.exports = function(grunt) {
   // Project configuration.
   grunt.initConfig({
     installl:

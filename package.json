@@ -3,9 +3,25 @@
   "description": "Grunt templates",
   "version": "0.1.0",
   "homepage": "https://github.com/mk/grunt-templates",
-  "author": {
-    "name": "Mickael Daniel",
-    "email": "daniel.mickael@gmail.com"
+  "author": "mklabs",
+  "main": "grunt.js",
+  "bin": "bin/grunt-templates",
+  "dependencies": {
+    "nopt": "~1.0.10",
+    "grunt": "~0.3.9",
+    "glob": "~3.1.9",
+    "tar": "~0.1.13",
+    "fstream": "~0.1.18",
+    "request": "~2.9.202",
+    "minimatch": "~0.2.4",
+    "rimraf": "~2.0.1"
+  },
+  "devDependencies": {
+    "mocha": "~1.0.3",
+    "mkdirp": "~0.3.2"
+  },
+  "scripts": {
+    "test": "node node_modules/mocha/bin/mocha -R spec"
   },
   "repository": {
     "type": "git",
@@ -20,19 +36,8 @@
       "url": "https://github.com/mk/grunt-templates/blob/master/LICENSE-MIT"
     }
   ],
-  "main": "grunt.js",
-  "bin": "bin/grunt-templates",
-  "engines": {
-    "node": "*"
-  },
-  "scripts": {
-    "test": "grunt test"
-  },
-  "dependencies": {
-    "grunt": "~0.3.7"
-  },
-  "devDependencies": {
-    "grunt": "~0.3.7"
-  },
-  "keywords": []
+  "keywords": [
+    "gruntplugin",
+    "templates"
+  ]
 }

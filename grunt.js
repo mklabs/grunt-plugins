@@ -1,16 +1,19 @@
 
+// Module dependencies
+
+var path = require('path');
+
+
 module.exports = gruntConfig;
 
 gruntConfig.Template = require('./lib/template');
+gruntConfig.Install = require('./lib/install');
 
 
 function gruntConfig(grunt) {
 
   // Project configuration.
   grunt.initConfig({
-    test: {
-      files: ['test/**/*.js']
-    },
     lint: {
       files: ['grunt.js', 'tasks/**/*.js', 'test/**/*.js']
     },
@@ -32,15 +35,14 @@ function gruntConfig(grunt) {
         eqnull: true,
         node: true,
         es5: true
-      },
-      globals: {}
+      }
     }
   });
 
   // Load local tasks.
-  grunt.loadTasks('tasks');
+  grunt.loadTasks(path.join(__dirname, 'tasks'));
 
   // Default task.
-  grunt.registerTask('default', 'lint test');
+  grunt.registerTask('default', 'template:help');
 
 }

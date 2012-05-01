@@ -6,35 +6,22 @@
  * Licensed under the MIT license.
  */
 
+var Template = require('../').Template;
+
 module.exports = function(grunt) {
-  // Grunt utilities.
-  var task = grunt.task;
-  var file = grunt.file;
-  var utils = grunt.utils;
-  var log = grunt.log;
-  var verbose = grunt.verbose;
-  var fail = grunt.fail;
-  var option = grunt.option;
-  var config = grunt.config;
-  var template = grunt.template;
 
-  // Please see the grunt documentation for more information regarding task and
-  // helper creation: https://github.com/cowboy/grunt/blob/master/docs/toc.md
+  grunt.registerTask('template', 'template for lazy people, template:help for further info', function(action) {
+    // async task
+    var cb = this.async();
+    var template = new Template(action);
 
-  // ==========================================================================
-  // TASKS
-  // ==========================================================================
+    template.on('repo', function(repo) {
+      var r = grunt.log.wordlist([repo.name, repo.repo, repo.branch], '/');
+      grunt.log.writeln('Initializing template with repo ' + r);
+    });
 
-  grunt.registerTask('templates', 'Your task description goes here.', function() {
-    log.write(grunt.helper('templates'));
+    template.on('end', function() {
+      cb();
+    });
   });
-
-  // ==========================================================================
-  // HELPERS
-  // ==========================================================================
-
-  grunt.registerHelper('templates', function() {
-    return 'templates!!!';
-  });
-
 };
