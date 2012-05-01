@@ -10,7 +10,9 @@ grunt-templates`
 
 Then add this line to your project's `grunt.js` gruntfile:
 
-```javascript task.loadNpmTasks('grunt-templates'); ```
+```js
+task.loadNpmTasks('grunt-templates');
+```
 
 [grunt]: https://github.com/cowboy/grunt
 [getting_started]: https://github.com/cowboy/grunt/blob/master/docs/getting_started.md
