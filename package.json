@@ -1,0 +1,16 @@
+{
+  "author": "",
+  "name": "grunt-feature",
+  "description": "A grunt task to glue up Gherkin Features and Mocha bdd tests",
+  "version": "0.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mklabs/grunt-plugins.git"
+  },
+  "main": "lib/feature.js",
+  "dependencies": {
+    "gherkin": "~2.11.1",
+    "mocha": "~1.3.0"
+  },
+  "devDependencies": {}
+}
