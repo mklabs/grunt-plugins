@@ -9,21 +9,14 @@ module.exports = function(grunt) {
     if(!data.steps) return grunt.warn('Missing steps config');
 
     // collect files
-    var cb = this.async(),
-      steps = grunt.file.expandFiles(data.steps),
-      features = grunt.file.expandFiles(data.features);
+    data.steps = grunt.file.expandFiles(data.steps),
+    data.features = grunt.file.expandFiles(data.features);
 
+    var cb = this.async();
     feature.on('end', function(failed) {
       if(!failed) return cb();
       grunt.log.error('Failed tests: ' + failed);
       return cb(false);
-    });
-
-    feature.run({
-      steps: steps,
-      features: features
-    });
-
+    }).run(data);
   });
-
 };
