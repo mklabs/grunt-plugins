@@ -5,8 +5,8 @@ module.exports = function(grunt) {
   grunt.initConfig({
     features: {
       examples: {
-        features: ['examples/features/*.feature'],
-        steps: ['examples/steps/**/*.js']
+        features: ['examples/features/calculator.feature'],
+        steps: ['examples/stepas/**/*.js']
       }
     }
   });
