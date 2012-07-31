@@ -1,4 +1,4 @@
-var mocha = require('mocha');
+var Mocha = require('mocha');
 
 module.exports = function(grunt) {
 
@@ -9,7 +9,20 @@ module.exports = function(grunt) {
     this.options = this.options || grunt.helper('opts', this);
     if(this.target === 'options') return;
 
-    var data = this.options();
+    // initialize the mocha runner and top level suite
+    var mocha = new Mocha(this.options());
+
+    // load files
+    grunt.file.expandFiles(this.file.src)
+      .forEach(mocha.addFile.bind(mocha));
+
+    var cb = this.async();
+
+    mocha.run(function(err) {
+      if(!err) return cb();
+      grunt.fatal(err + ' failed tests.');
+    });
+
 
   });
 

@@ -3,7 +3,6 @@
   "version": "0.0.0",
   "author": "mklabs",
   "description": "A grunt task to run server-side mocha specs",
-  "main": "lib/mocha.js",
   "scripts": {
     "test": "grunt mocha"
   },
